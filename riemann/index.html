@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset='UTF-8'/>
+  <title>Soma de Riemann</title>
+  <link rel="icon" href="../icon/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="riemann.css">
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" async
+    src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-local.js?v=20261126-6"></script>
+  <script src="riemann.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="../css/template.css">
+<link rel="stylesheet" href="/css/local.css?v=20261126-6">
+<script src="/js/local-ui.js?v=20261126-6" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+</head>
+<body class="activity-page calculus-page">
+  <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <h2>Soma de Riemann</h2>
+    <br>
+    <div class="row" align="middle">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <p class="recuo">
+          Se `f` é uma função contínua definida em `a<=x<=b`, dividimos os intervalos `[a,b]` em `n` subintervalos de comprimentos iguais `Deltax=(b-a)/n`. Sejam `x_0(=a),x_1,x_2,...,x_n(=b)` as extremidades desses subintervalos, e sejam `x_1^**,x_2^**,...,x_n^**` pontos amostrais arbitrários nesses subintervalos, de forma que `x_i^**` esteja no i-ésimo subintervalo `[x_(i-1),x_i]`. Então a integral definida de `f` de `a` a `b` é
+        </p>
+        `int_a^bf(x)dx=lim_(n->oo)sum_(i=1)^nf(x_i^**)Deltax`
+        <br>
+        <p>
+          Em nosso exemplo, o ponto amostral `x_i^**` de cada subintervalo depende do tipo de integração escolhido.<br>
+        </p>
+        <p class="recuo"><b>Soma superior</b>`->`máximo da função no subintervalo.</p>
+        <p class="recuo"><b>Soma inferior</b>`->`mínimo da função no subintervalo.</p>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+    <br><br>
+    <div class="row" align="middle">
+      <div class="col-sm-6">
+        `f(x)=`
+        <input id="funcao" type="text" value='sin(x)' onchange="setFuncao()"/>
+        <button class="btn btn-default" onclick="setFuncao()">OK</button>
+        <div class="row">
+          <br>
+          <div class="col-sm-6">
+            <b>Domínio</b>
+            <br><br>`a=`
+            <input type="number" id="xmin" size="3" value="0" onchange="setDominio()">
+            <br><br>`b=`
+            <input type="number" id="xmax" size="3" value="2" onchange="setDominio()">
+          </div>
+          <div class="col-sm-6">
+            <b>Tipo de integração</b><br><br>
+            <form onchange="setTipoIntegracao()">
+              <input type="radio" name="tipoIntegracao" checked> Soma superior<br>
+              <input type="radio" name="tipoIntegracao"> Soma inferior<br>
+              <input type="radio" name="tipoIntegracao">Superior e inferior<br><br>
+            </form>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <br>
+              <b>Partições</b>
+              <br><br>
+              `n=`
+              <input type="number" id="n" min="1" size="5" value="2">
+              <button class="btn btn-default" onclick="setValorN(this)">OK</button>
+              <div class="inline-block"><input type="range" id='rangeN' min="1" max="2" value="2" oninput="setValorN(this)" onchange="adicionarValorTabela()"></div><span id="valorN"> 2</span>
+            </div>
+          </div>
+        </div>
+        <br><br>
+        <table>
+          <tr>
+            <td class="padding-5">&nbsp;&nbsp;n&nbsp;&nbsp;</td>
+            <td class="padding-5">Soma inferior</td>
+            <td class="padding-5">Valor exato</td>
+            <td class="padding-5">Soma superior</td>
+          </tr>
+          <tr>
+            <td class="padding-5" id="np1">2</td>
+            <td class="padding-5" id="vi1">0.84</td>
+            <td rowspan="3" class="padding-5" id="valorSoma">1.42</td>
+            <td class="padding-5" id="vs1">1.84</td>
+          </tr>
+          <tr>
+            <td class="padding-5" id="np2">--</td>
+            <td class="padding-5" id="vi2">--</td>
+            <td class="padding-5" id="vs2">--</td>
+          </tr>
+          <tr>
+            <td class="padding-5" id="np3">--</td>
+            <td class="padding-5" id="vi3">--</td>
+            <td class="padding-5" id="vs3">--</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-6">
+        <div id="applet-container"></div>
+        <br>
+        <img src="../imagens/mouse-click.png"/><b class="fonte8">Visualização </b>
+        <img src="../imagens/mouse-scroll.png"><b class="fonte8"> Zoom</b>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center rodape">
+      <img src="../imagens/ect-logo.png">
+      Escola de Ciências e Tecnologia - UFRN
+      <img src="../imagens/ufrn-logo.png">
+  </footer>
+</body>
+</html>

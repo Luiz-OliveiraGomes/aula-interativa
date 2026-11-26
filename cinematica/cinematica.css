@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.graph-controls {
+    padding: 5px;
+    background: #404040;
+}
+
+.graph-div {
+    height: 450px;
+    width: 100%;
+    margin: 0px auto;
+    border: 1px solid #CCC;
+}
+
+.no-padding {
+    padding: 0px;
+}
+
+.with-indentation {
+    text-indent: 3em;
+}
+
+.description {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px 0px;
+    text-align: center;
+}
+
+.description > div {
+    margin: 0px 20px 20px 20px;
+}
+
+.vertical-description {
+    flex-direction: column;
+}
+
+.small-input {
+    width: 80px !important;
+    display: inline-block;
+}
+
+.vertical-description > div {
+    margin: 0px 0px 20px 0px;
+}
+
+.tab-content {
+    padding: 20px 0px;
+}
+
+.vector-color {
+    margin-right: 5px;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}
+
+.vector-color.red {
+    background: red;
+}
+
+.vector-color.green {
+    background: green;
+}
+
+.vector-color.blue {
+    background: blue;
+}
+
+.vector-color.purple {
+    background: #6c0081;
+}
+
+.vector-color.pink {
+    background: #ff00ff;
+}
+
+.vector-color.sky-blue {
+    background: #008b80;
+    border: 1px solid #000;
+}
+
+.curvature-canvas-container {
+    border: 1px solid #CCC;
+    margin: 10px auto;
+    text-align: center;
+}
+
+#curvatureCanvas {
+    width: 800px;
+    height: 150px;
+}
+
+input[type=range] {
+    height: 35px;
+}
+

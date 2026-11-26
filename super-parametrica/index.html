@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta charset='UTF-8' />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Superfície Paramétrica</title>
+  <link rel="icon" href="../icon/favicon.ico" />
+
+  <!-- GOOGLE FONTS -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <!-- BOOTSTRAP CSS -->
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <!-- LAYOUT CSS -->
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="css/super-parametrica.css">
+
+<link rel="stylesheet" href="/css/local.css?v=20261126-6">
+<script src="/js/local-ui.js?v=20261126-6" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+</head>
+
+<body class="activity-page calculus-page">
+  <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>Superfície Paramétrica</h1>
+    <br>
+    <div class="row" align="middle">
+      <div class="col-sm-5 surface-sidebar">
+        <section class="activity-controls" aria-labelledby="surface-settings-title">
+          <h2 id="surface-settings-title">Parâmetros da superfície</h2>
+          <p class="recuo">Seja `vec(r)(u,v)=(x(u,v); y(u,v); z(u,v))` uma superfícies `S` parametrizada no espaço `RR^3`, tal que:</p>
+          <form class="surface-form" onsubmit="event.preventDefault(); processPage();">
+            <fieldset>
+              <legend>Coordenadas</legend>
+              <label class="coordinate-field" for="xFuncText"><span>`x(u,v)`</span><input type="text" class="form-control" id="xFuncText" value="(10+v*cos(1/2*u))*cos(u)" spellcheck="false" required></label>
+              <label class="coordinate-field" for="yFuncText"><span>`y(u,v)`</span><input type="text" class="form-control" id="yFuncText" value="(10+v*cos(1/2*u))*sin(u)" spellcheck="false" required></label>
+              <label class="coordinate-field" for="zFuncText"><span>`z(u,v)`</span><input type="text" class="form-control" id="zFuncText" value="v*sin(1/2*u)" spellcheck="false" required></label>
+            </fieldset>
+            <fieldset>
+              <legend>Intervalos</legend>
+              <div class="parameter-interval"><span aria-hidden="true">u</span><label for="uMin">Inicial<input type="text" class="form-control" id="uMin" value="0" required></label><label for="uMax">Final<input type="text" class="form-control" id="uMax" value="2*pi" required></label></div>
+              <div class="parameter-interval"><span aria-hidden="true">v</span><label for="vMin">Inicial<input type="text" class="form-control" id="vMin" value="-5" required></label><label for="vMax">Final<input type="text" class="form-control" id="vMax" value="5" required></label></div>
+            </fieldset>
+            <button type="submit" class="btn btn-primary generate-surface">Gerar superfície</button>
+            <button type="button" class="btn reset-surface" onclick="document.getElementById('showLines').checked=false; document.getElementById('showFrenet').checked=false; mobius();">Restaurar valores iniciais</button>
+            <div class="surface-options"><label><input type="checkbox" id="showLines">Mostrar linhas</label><label><input type="checkbox" id="showFrenet">Mostrar Frenet</label></div>
+          </form>
+        </section>
+        <section class="surface-explanation" aria-label="Área da superfície"><div class="row">
+          <p class="recuo equacoes">A área `A` é a integral de `||(delr(u,v))/(delu)xx(delr(u,v))/(delv)||dvdu` por toda a superfície paramétrica `S`, em
+            que:
+          </p>
+          <p class="recuo equacoes">`A=int_SdA=int_(u_i)^(u_f) int_(v_i)^(v_f) ||(delr(u,v))/(delu)xx(delr(u,v))/(delv)||dvdu`</p>
+          <br>
+          <p class="featured" id="area"></p>
+        </div></section>
+      </div>
+      <div class="col-sm-7" id="fullScreenTarget">
+        <div class="btn-group btn-group-justified">
+          <a class="btn btn-primary" onclick="cilindro();">Cilindro</a>
+          <a class="btn btn-primary" onclick="mobius();">Fita de Mobius</a>
+          <a class="btn btn-primary" onclick="toro();">Toro</a>
+        </div>
+        <br>
+        <div id="canvas-container"></div>
+        <br>
+        <div class="row">
+          <div class="col-sm-1" style="display:none" id="uOfuPos">
+            <label>`u:`</label>
+          </div>
+          <div class="col-sm-11">
+            <input type="range" min="0" max="100" value="0" class="slider" style="display:none" id="uPos">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <footer class="text-center">
+    <img src="../imagens/ect-logo.png"> Escola de Ciências e Tecnologia - UFRN
+    <img src="../imagens/ufrn-logo.png">
+  </footer>
+
+  <!-- MATHJAX JS -->
+  <script type="text/javascript" src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <!-- BOOTSTRAP JS -->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!-- Three JS -->
+  <script src='../js/three/three.min.js'></script>
+  <script src='../js/three/OrbitControls.js'></script>
+  <script src='../js/three/ParametricGeometries.js'></script>
+  <!-- Nerdamer JS -->
+  <script src="../js/nerdamer/nerdamer.core.js"></script>
+  <script src="../js/nerdamer/Calculus.js"></script>
+  <script src="../js/nerdamer/Extra.js"></script>
+  <!-- My sketch -->
+  <script src='../js/canvas-renderer.js?v=20261126-6'></script>
+  <script src='js/super-parametrica.js'></script>
+</body>
+
+</html>

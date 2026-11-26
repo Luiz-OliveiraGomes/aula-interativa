@@ -1,0 +1,146 @@
+<!-- Desenvolvedor: <a href="https://www.escavador.com/sobre/224536528/lucas-batista-da-fonseca" target="_blank" rel="noopener noreferrer">Lucas Batista da Fonseca</a> -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset='UTF-8'/>
+    <title>Limite de função de duas variáveis</title>
+    <link rel="icon" href="../icon/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="Limite.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" async
+      src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-local.js?v=20261126-6"></script>
+    <script src="Limite.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../css/template.css">
+<link rel="stylesheet" href="/css/local.css?v=20261126-6">
+<script src="/js/local-ui.js?v=20261126-6" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+</head>
+<body class="activity-page calculus-page">
+    <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+    <div class="container">
+        <h1>Limite de função de duas variáveis</h1>
+        <br>
+        <br>
+        <div align="middle">
+            <h4 class="recuo">Seja `f` \(:D \subset \mathbb{R}^2\to\ \mathbb{R} \) ; `z = f(x,y)` ; `(x,y)` \(\in\) D ; `z` \(\in\) `Im(f)`</h4>
+            <br>
+            <h4 class="recuo">Gráfico `(f): = {(x,y,f(x,y))` \(\in\) \(\mathbb{R}^3\)`}`</h4>
+            <br>
+            <div style="border-top:solid;border-bottom: solid;border-width: 1px;">
+                <h3>AFIRMAÇÃO:</h3>
+                <h4 class="recuo">`lim_((x,y)->(x_0,y_0)) f(x,y)` depende do caminho de aproximação ao ponto `(x_0,y_0)`</h4>
+            </div>
+            <br>
+        </div>
+        <div>
+            <div align="middle" class="btn-group btn-group-justified" data-toggle="buttons">
+                <label id="butao1" class="btn btn-primary active" onclick="exemplo1()">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked> 1º Exemplo
+                </label>
+                <label id="butao2" class="btn btn-primary" onclick="exemplo2()">
+                     <input type="radio" name="options" id="option2" autocomplete="off"> 2º Exemplo
+                </label>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div id="exemplo" style="width:1100px;height: 1040px">
+            <div align="middle" id="texto_exemplo2" style="display: none;">
+            <h4>Como podemos verificar no exemplo à seguir:</h4>
+            <br>
+            <h4>`z = f(x,y) = (x^2 - y^2)/(x^2 + y^2)` </h4>
+            <br>
+            <h4>Note que:</h4>
+            <br>
+            <h4>D1`->`<span style="border:solid;border-radius: 10px;padding: 20px;border-width: 1px;">`lim_((x,0)->(0,0)) f(x,y) = L_1`</span> ; D2`->`<span style="border:solid;border-radius: 10px;padding: 20px;border-width: 1px;">`lim_((0,y)->(0,0)) f(x,y) = L_2`</span></h4>
+            <br>
+            <h4>`lim_((x,y)->(0,0)) f(x,y)` \(\nexists\);</h4>
+            <br>
+            </div>
+            <div align="middle" id="texto_exemplo1" style="display: block;">
+            <h4>Como podemos verificar no exemplo à seguir:</h4>
+            <br>
+            <h4>`z = f(x,y) = (x^2 + 2y^2)/(x^2 - y^2)` </h4>
+            <br>
+            <h4>Note que:</h4>
+            <br>
+            <h4>D1`->`<span style="border:solid;border-radius: 10px;padding: 20px;border-width: 1px;">`lim_((x,0)->(0,0)) f(x,y) = L_1`</span> ; D2`->`<span style="border:solid;border-radius: 10px;padding: 20px;border-width: 1px;">`lim_((0,y)->(0,0)) f(x,y) = L_2`</span></h4>
+            <br>
+            <h4>`lim_((x,y)->(0,0)) f(x,y)` \(\nexists\);</h4>
+            <br>
+            </div>
+            <br>
+            <h4 align="middle"> Use <img src="../imagens/mouse-scroll.png"> Para apagar rastro</h4>
+        <div class="geogebra">
+                <div id="applet_container"></div>
+            </div>
+        </div>
+                <br>
+                <div align="middle">
+                    <img src="../imagens/mouse-click.png"/><b class="fonte8">Visualização </b>
+                    <img src="../imagens/mouse-scroll.png"><b class="fonte8"> Zoom | Para apagar rastro</b>
+                    <br>
+                    <img src="../imagens/trasladarz.png"><b class="fonte8"></b>
+                    <img src="../imagens/mouse-click.png"><b class="fonte8">Transladar </b>
+                </div>
+                <br><br>
+        <form>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon">`f(x,y)`</div>
+                        <input type="text" class="form-control" id="funcao" placeholder="(x^2 + 2y^2)/(x^2 - y^2)">
+                    </div>
+                </div>        
+            <div class="col-md-3">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon">`P(x_0,y_0)`</div>
+                    <input type="text" class="form-control" id="ponto" placeholder="(0,0)">                    
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary btn-form" onclick="gerarSuperficie()">Plotar Superfície</button>
+            </div>
+        </div>
+        </form>
+        <br>
+        <h4 align="middle">Escolha um equação de duas variáveis e o ponto `(x_0,y_0)`</h4>
+        <br>
+        <h4 align="middle">Utilize o ponto "D", com o mouse, para gerar caminhos de aproximação à `(x_0,y_0)`</h4>
+        <br>
+        <h6>Desenvolvedor: <a href="https://www.escavador.com/sobre/224536528/lucas-batista-da-fonseca" target="_blank" rel="noopener noreferrer">Lucas Batista da Fonseca</a></h6>
+    </div>
+    <footer class="text-center rodape">
+        <img src="../imagens/ect-logo.png">
+        Escola de Ciências e Tecnologia - UFRN
+        <img src="../imagens/ufrn-logo.png">
+    </footer>
+</body>
+</html>

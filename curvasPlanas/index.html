@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Matemática Polar | Gráfico em Coordenadas Polares</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none; /* Evita seleção acidental, mas não atrapalha inputs */
+        }
+
+        body {
+            background: linear-gradient(145deg, #e0eafc 0%, #cfdef3 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* JANELA PRINCIPAL - estilo card flutuante */
+        .polar-window {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            width: 100%;
+            max-width: 1300px;
+            transition: all 0.2s ease;
+            overflow: hidden;
+            padding: 1.8rem 2rem 2rem 2rem;
+        }
+
+        /* Título principal */
+        .window-title {
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a2a4f, #0f2b3d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.3px;
+            display: inline-block;
+            border-left: 7px solid #f39c12;
+            padding-left: 20px;
+        }
+
+        .sub {
+            color: #2c3e66;
+            margin-left: 28px;
+            margin-top: -8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0.75;
+        }
+
+        /* grid de 2 colunas: controles + canvas */
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .controls {
+            flex: 1.1;
+            min-width: 260px;
+            background: #f8faff;
+            border-radius: 1.5rem;
+            padding: 1.4rem 1.6rem;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eef2ff;
+        }
+
+        .graph-container {
+            flex: 2.2;
+            min-width: 380px;
+            background: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            background: #fefefe;
+            border-radius: 1.2rem;
+            width: 100%;
+            height: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #dce5f0;
+            cursor: crosshair;
+        }
+
+        /* campos de entrada */
+        .input-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .input-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #1e2f4b;
+            margin-bottom: 0.6rem;
+            font-size: 1rem;
+        }
+
+        .input-group label i {
+            font-style: normal;
+            font-weight: 700;
+            background: #2c3e66;
+            color: white;
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px 14px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.95rem;
+            border: 2px solid #e2e8f2;
+            border-radius: 1rem;
+            background: white;
+            transition: 0.2s;
+            outline: none;
+            color: #0a1c2f;
+            resize: vertical;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #f39c12;
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+        }
+
+        textarea {
+            min-height: 80px;
+            line-height: 1.4;
+        }
+
+        .helper {
+            font-size: 0.7rem;
+            color: #5b6f8c;
+            margin-top: 6px;
+            margin-left: 8px;
+        }
+
+        button {
+            background: #1f3a5f;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 2rem;
+            font-weight: bold;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            margin-top: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            background: #f39c12;
+            color: #1e2a3a;
+            transform: scale(0.98);
+            letter-spacing: 0.3px;
+        }
+
+        .theta-presets {
+            background: #ecf3fa;
+            padding: 12px;
+            border-radius: 1.2rem;
+            margin: 12px 0 8px;
+        }
+
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .preset-buttons span {
+            background: white;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid #bfcfec;
+            transition: 0.1s;
+        }
+
+        .preset-buttons span:hover {
+            background: #f39c12;
+            color: white;
+            border-color: #f39c12;
+        }
+
+        .status {
+            font-size: 0.75rem;
+            color: #2c6e2c;
+            margin-top: 12px;
+            text-align: center;
+            background: #eaf7ea;
+            padding: 6px;
+            border-radius: 50px;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border-color: #dee5f0;
+        }
+
+        @media (max-width: 800px) {
+            .polar-window {
+                padding: 1.2rem;
+            }
+            .graph-container {
+                min-width: 280px;
+            }
+        }
+    </style>
+<link rel="stylesheet" href="/css/local.css?v=20261126-6">
+<script src="/js/local-ui.js?v=20261126-6" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+</head>
+<body class="activity-page calculus-page">
+
+<div class="polar-window">
+    <div>
+        <div class="window-title">Gráfico de curvas planas em coordenadas polares</div>
+        <div class="sub">Neste projeto apresentamos como se constrói o gráfico de curvas planas em coordenadas polares, sempre respeitando a condição r = √(x² + y²) maior ou igual a zero.</div>
+        <div class="helper" style="margin-top: 6px; font-size: 0.82rem; color: #4f6480;">
+            O que implica que as rosáceas sejam <strong>r = a cos(nθ)</strong> ou <strong>r = a sin(nθ)</strong> sempre terão <strong>n pétalas</strong>. Aqui, <strong>a</strong> é um número real constante e <strong>n</strong> é um número inteiro, diferente de zero.
+        </div>
+    </div>
+
+    <div class="dashboard">
+        <!-- COLUNA ESQUERDA: inputs -->
+        <div class="controls">
+            <div class="input-group">
+                <label><i>①</i> Fórmula de r(θ):</label>
+                <div class="helper" style="margin: 2px 0 6px; padding: 0;">
+                    <label style="display:inline-flex; align-items:center; gap:2px; margin:0; width:fit-content; font-weight:600; line-height:1;">
+                        <input type="checkbox" id="showCurve1" checked style="margin:0; width:12px; height:12px; flex:0 0 auto; "> Exibir curva 1
+                    </label>
+                </div>
+                <textarea id="funcInput" placeholder="Ex: 2 * sin(2 * theta)   ou   2 + 2*cos(theta)" rows="2">2 * sin(2 * theta)</textarea>
+                <div class="helper">Use <strong>theta</strong> como variável. Funções: sin, cos, tan, abs, sqrt, exp, pow, + - * /</div>
+            </div>
+
+            <div class="input-group">
+                <label><i>②</i> Intervalo de θ (início, fim, passo):</label>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <input type="text" id="thetaStart" placeholder="Início θ" value="0" style="width: 30%;">
+                    <input type="text" id="thetaEnd" placeholder="Fim θ" value="2*pi" style="width: 35%;">
+                    <input type="text" id="thetaStep" placeholder="Passo" value="0.02" style="width: 30%;">
+                </div>
+                <div class="helper">Ex: 0 , 2*pi , 0.02  (o passo é ajustado automaticamente conforme o tamanho do gráfico)</div>
+            </div>
+
+            <div class="input-group" style="border-top: 1px solid #e7eef8; padding-top: 14px;">
+                <label><i>②</i> Fórmula de ρ(θ) opcional:</label>
+                <div class="helper" style="margin: 2px 0 6px; padding: 0;">
+                    <label style="display:inline-flex; align-items:center; gap:2px; margin:0; width:fit-content; font-weight:600; line-height:1;">
+                        <input type="checkbox" id="showCurve2" style="margin:0; width:12px; height:12px; flex:0 0 auto;"> Exibir curva 2
+                    </label>
+                </div>
+                <textarea id="funcInput2" placeholder="Ex: 1.5 + cos(theta)" rows="2"></textarea>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+                    <input type="text" id="thetaStart2" placeholder="Início θ" value="0" style="width: 30%;">
+                    <input type="text" id="thetaEnd2" placeholder="Fim θ" value="2*pi" style="width: 35%;">
+                    <input type="text" id="thetaStep2" placeholder="Passo" value="0.02" style="width: 30%;">
+                </div>
+                <div class="helper">Curva 2 tem janela própria. Marque apenas a curva 1, apenas a 2, ou as duas.</div>
+            </div>
+
+            <div class="theta-presets">
+                <div style="font-size:0.8rem; font-weight:600;">📌 intervalos rápidos:</div>
+                <div class="preset-buttons">
+                    <span onclick="setThetaInterval('0', '2*pi', '0.02')">0 → 2π</span>
+                    <span onclick="setThetaInterval('0', 'pi', '0.02')">0 → π</span>
+                    <span onclick="setThetaInterval('0', '4*pi', '0.03')">0 → 4π (2 voltas)</span>
+                    <span onclick="setThetaInterval('-pi', 'pi', '0.02')">-π → π</span>
+                </div>
+            </div>
+
+            <button id="plotBtn">📈  Plotar Gráfico Polar</button>
+            <div style="margin-top: 12px; font-size: 0.7rem; background:#eff3f9; border-radius: 1rem; padding: 8px; text-align:center;">
+                ⚡ r ≥ 0 sempre tratado como positivo | se r<0 -> |r| é traçado (módulo)</0>.
+            </div>
+            <div id="statusMsg" class="status">✅ Pronto! Insira equação e θ-range.</div>
+        </div>
+
+        <!-- COLUNA DIREITA: canvas gráfico -->
+        <div class="graph-container">
+            <canvas id="polarCanvas" width="600" height="600" style="width:100%; max-width:600px; height:auto; aspect-ratio:1/1"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ----- ELEMENTOS -----
+        const canvas = document.getElementById('polarCanvas');
+        const ctx = canvas.getContext('2d');
+        const funcTextarea = document.getElementById('funcInput');
+        const funcTextarea2 = document.getElementById('funcInput2');
+        const thetaStartInp = document.getElementById('thetaStart');
+        const thetaEndInp = document.getElementById('thetaEnd');
+        const thetaStepInp = document.getElementById('thetaStep');
+        const thetaStartInp2 = document.getElementById('thetaStart2');
+        const thetaEndInp2 = document.getElementById('thetaEnd2');
+        const thetaStepInp2 = document.getElementById('thetaStep2');
+        const showCurve1Inp = document.getElementById('showCurve1');
+        const showCurve2Inp = document.getElementById('showCurve2');
+        const plotBtn = document.getElementById('plotBtn');
+        const statusDiv = document.getElementById('statusMsg');
+
+        // Dimensões reais do canvas (para resolução consistente)
+        let width = 600, height = 600;
+        let displaySize = 600;
+        let zoomFactor = 1;
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            const expanded = container.matches(':fullscreen, .local-graph-expanded');
+            const maxSize = Math.min(container.clientWidth, 600);
+            width = expanded ? container.clientWidth - 32 : 600;
+            height = expanded ? container.clientHeight - container.querySelector('.local-graph-toolbar').offsetHeight - 48 : 600;
+            canvas.style.width = expanded ? '100%' : `${maxSize}px`;
+            canvas.style.height = expanded ? `${height}px` : `${maxSize}px`;
+            canvas.width = width;
+            canvas.height = height;
+            displaySize = expanded ? Math.min(width, height) : maxSize;
+            drawGridAndAxes(); // redesenha grid sempre que resize, mas sem plotar equação ainda
+        }
+
+        // Normaliza símbolos e nomenclatura matemática para a sintaxe de JavaScript.
+        // Ex.: sin, cos, tan, pi, theta, π, θ, ^, √
+        function normalizeMathExpression(expression) {
+            if (typeof expression !== 'string') return '';
+            let expr = expression.trim();
+            if (expr === '') return '';
+
+            expr = expr.replace(/×/g, '*');
+            expr = expr.replace(/÷/g, '/');
+            expr = expr.replace(/·/g, '*');
+            expr = expr.replace(/[−–—]/g, '-');
+            expr = expr.replace(/π/g, 'pi');
+            expr = expr.replace(/θ/g, 'theta');
+            expr = expr.replace(/\^/g, '**');
+
+            // Converte multiplicação implícita: 2pi, 3sin(x), 4cos(theta)
+            expr = expr.replace(/([0-9.])\s*(pi|theta|sin|cos|tan|asin|acos|atan|sqrt|abs|exp|pow|ln|log|e)\b/gi, '$1*$2');
+            expr = expr.replace(/\bpi\b/gi, 'pi');
+            expr = expr.replace(/\btheta\b/gi, 'theta');
+
+            // Suporte para a forma ortográfica de raízes e operações matemáticas humanizadas
+            expr = expr.replace(/\b√\b|sqrt\(/gi, 'sqrt(');
+            expr = expr.replace(/\bπ\b/g, 'pi');
+            expr = expr.replace(/\bθ\b/g, 'theta');
+
+            return expr;
+        }
+
+        // Função para avaliar r = f(theta) usando javascript Function
+        // IMPORTANTE: aqui NÃO tomamos valor absoluto. r é uma distância física
+        // (r = sqrt(x^2+y^2) >= 0), então quando f(theta) resulta em um valor negativo,
+        // esse ponto simplesmente NÃO existe na curva - ele não deve ser espelhado
+        // para o lado oposto (isso é o que causava o dobro de pétalas / formas erradas
+        // quando n era par). Retornamos o valor com sinal e decidimos o que fazer com
+        // ele no momento de desenhar (drawPolarCurve).
+        function buildRFunction(expression) {
+            try {
+                const normalizedExpression = normalizeMathExpression(expression);
+                const fnBody = `
+                    const pi = Math.PI;
+                    const e = Math.E;
+                    const theta = arg;
+                    const sin = Math.sin;
+                    const cos = Math.cos;
+                    const tan = Math.tan;
+                    const asin = Math.asin;
+                    const acos = Math.acos;
+                    const atan = Math.atan;
+                    const atan2 = Math.atan2;
+                    const sqrt = Math.sqrt;
+                    const abs = Math.abs;
+                    const exp = Math.exp;
+                    const pow = Math.pow;
+                    const min = Math.min;
+                    const max = Math.max;
+                    const floor = Math.floor;
+                    const ceil = Math.ceil;
+                    const round = Math.round;
+                    const ln = Math.log;
+                    const log = Math.log;
+                    return (${normalizedExpression});
+                `;
+                const rFunc = new Function('arg', fnBody);
+                // teste de avaliação com theta=0 para capturar erros de sintaxe
+                rFunc(0);
+                return (thetaVal) => {
+                    let r = rFunc(thetaVal);
+                    if (isNaN(r) || !isFinite(r)) return null; // ponto inválido -> não plotável
+                    return r; // mantemos o sinal original de propósito
+                };
+            } catch(e) {
+                console.warn(e);
+                return null;
+            }
+        }
+
+        // converte string para número (suporta expressões "pi", "2*pi", "pi/2", "π/2")
+        function parseThetaValue(str) {
+            if (typeof str !== 'string') return 0;
+            str = str.trim().toLowerCase();
+            const expr = normalizeMathExpression(str);
+            if (expr === '') return 0;
+            try {
+                const evalExpr = new Function(`
+                    const pi = Math.PI;
+                    const e = Math.E;
+                    const sin = Math.sin;
+                    const cos = Math.cos;
+                    const tan = Math.tan;
+                    const asin = Math.asin;
+                    const acos = Math.acos;
+                    const atan = Math.atan;
+                    const atan2 = Math.atan2;
+                    const sqrt = Math.sqrt;
+                    const abs = Math.abs;
+                    const exp = Math.exp;
+                    const pow = Math.pow;
+                    const min = Math.min;
+                    const max = Math.max;
+                    const floor = Math.floor;
+                    const ceil = Math.ceil;
+                    const round = Math.round;
+                    const ln = Math.log;
+                    const log = Math.log;
+                    return (${expr});
+                `);
+                const val = evalExpr();
+                if (isNaN(val) || !isFinite(val)) return 0;
+                return val;
+            } catch(e) {
+                console.warn('Erro ao interpretar intervalo de θ:', e);
+                return 0;
+            }
+        }
+
+        // Gera array de pontos polares (theta, r) respeitando intervalo e passo.
+        // r pode vir negativo ou null aqui - a decisão de plotar ou não é feita em drawPolarCurve.
+        function computePoints(rFunc, tStart, tEnd, step) {
+            const points = [];
+            if (step <= 0) step = 0.02;
+            let theta = tStart;
+            while (theta <= tEnd + 1e-9) {
+                let r = rFunc(theta);
+                points.push({ theta: theta, r: r });
+                theta += step;
+                if (points.length > 20000) break;
+            }
+            return points;
+        }
+
+        function getEffectiveThetaStep(tStart, tEnd, manualStep) {
+            const range = Math.abs(tEnd - tStart);
+            const targetSamples = Math.max(180, Math.round(displaySize * 1.25));
+            const adaptiveStep = range / targetSamples;
+            if (!isFinite(adaptiveStep) || adaptiveStep <= 0) return manualStep;
+            return Math.max(manualStep, adaptiveStep);
+        }
+
+        function chooseNiceStep(approxStep) {
+            if (!isFinite(approxStep) || approxStep <= 0) return 1;
+            const exponent = Math.floor(Math.log10(approxStep));
+            const base = Math.pow(10, exponent);
+            const candidates = [1, 2, 2.5, 5, 10];
+            for (const factor of candidates) {
+                const step = base * factor;
+                if (step >= approxStep) return step;
+            }
+            return base * 10;
+        }
+
+        // ----- SISTEMA DE COORDENADAS POLAR NO CANVAS -----
+        let centerX = width/2, centerY = height/2;
+        let scale = 1;
+
+        function drawGridAndAxes(currentMaxR = null) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+            centerX = width/2;
+            centerY = height/2;
+
+            ctx.save();
+            ctx.strokeStyle = "#cddae9";
+            ctx.fillStyle = "#7f8c8d";
+            ctx.font = "12px 'Segoe UI'";
+            ctx.lineWidth = 0.8;
+
+            let maxR = (currentMaxR && currentMaxR > 0.01) ? currentMaxR : 5;
+            let range = maxR * 1.15;
+            scale = (Math.min(width, height) * 0.45) / range * zoomFactor;
+            if (!isFinite(scale) || scale <= 0) scale = 40;
+
+            const targetTicks = Math.max(4, Math.min(8, Math.round(displaySize / 90)));
+            const tickStep = chooseNiceStep(range / targetTicks);
+            const circleStep = chooseNiceStep(range / 6);
+
+            for (let rVal = circleStep; rVal <= range + 1e-9; rVal += circleStep) {
+                const radius = rVal * scale;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                ctx.strokeStyle = "#dbe4f0";
+                ctx.fillStyle = "transparent";
+                ctx.stroke();
+                if (radius >= 28) {
+                    ctx.fillStyle = "#5b6f8c";
+                    ctx.fillText(rVal.toFixed(rVal < 10 ? 1 : 0), centerX + radius - 8, centerY - 4);
+                }
+            }
+
+            for (let angDeg = 0; angDeg < 360; angDeg += 30) {
+                let rad = angDeg * Math.PI / 180;
+                let x2 = centerX + (range * scale) * Math.cos(rad);
+                let y2 = centerY - (range * scale) * Math.sin(rad);
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(x2, y2);
+                ctx.strokeStyle = "#e2e9f5";
+                ctx.stroke();
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(centerX - range*scale, centerY);
+            ctx.lineTo(centerX + range*scale, centerY);
+            ctx.moveTo(centerX, centerY - range*scale);
+            ctx.lineTo(centerX, centerY + range*scale);
+            ctx.strokeStyle = "#9aaec2";
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            ctx.fillStyle = "#2d4a6e";
+            ctx.font = "10px monospace";
+            for (let step = -range; step <= range + 1e-9; step += tickStep) {
+                if (Math.abs(step) < 0.1) continue;
+                let xTick = centerX + step * scale;
+                if (xTick > 0 && xTick < width && tickStep * scale >= 42) {
+                    ctx.fillText(step.toFixed(1), xTick-6, centerY+12);
+                }
+                // canvas Y cresce para baixo; invertendo para coordenadas matemáticas
+                let yTick = centerY - step * scale;
+                if (yTick > 0 && yTick < height && tickStep * scale >= 42) {
+                    ctx.fillText(step.toFixed(1), centerX+8, yTick+3);
+                }
+            }
+            ctx.fillStyle = "#1e3c5c";
+            ctx.fillText("θ=0", centerX + (range*scale)*0.85, centerY - 6);
+            ctx.fillText("π/2", centerX + 8, centerY - (range*scale)*0.85);
+            ctx.restore();
+        }
+
+        function drawPolarCurve(points, options = {}) {
+            const drawGrid = options.drawGrid !== false;
+            const curveColor = options.color || "#e67e22";
+            const firstPointColor = options.firstPointColor || curveColor;
+
+            if (!points || points.length === 0) {
+                if (drawGrid) drawGridAndAxes(5);
+                return;
+            }
+
+            if (drawGrid) {
+                let maxR = 0;
+                for (let p of points) {
+                    if (p.r !== null && p.r > maxR) maxR = p.r;
+                }
+                maxR = Math.max(maxR, 0.5);
+                drawGridAndAxes(maxR);
+            }
+
+            if (!ctx) return;
+            ctx.beginPath();
+            ctx.lineWidth = 2.8;
+            ctx.strokeStyle = curveColor;
+            ctx.shadowBlur = 0;
+
+            let pathStarted = false;
+            let firstValidPoint = null;
+
+            for (let i = 0; i < points.length; i++) {
+                const theta = points[i].theta;
+                let r = points[i].r;
+
+                if (r === null || r < 0) {
+                    pathStarted = false;
+                    continue;
+                }
+
+                if (r < 1e-9) r = 0;
+                const x = centerX + r * scale * Math.cos(theta);
+                const y = centerY - r * scale * Math.sin(theta);
+
+                if (!pathStarted) {
+                    ctx.moveTo(x, y);
+                    pathStarted = true;
+                    if (!firstValidPoint) firstValidPoint = { x, y };
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.stroke();
+
+            if (firstValidPoint) {
+                ctx.beginPath();
+                ctx.arc(firstValidPoint.x, firstValidPoint.y, 3.5, 0, 2*Math.PI);
+                ctx.fillStyle = firstPointColor;
+                ctx.fill();
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                ctx.arc(firstValidPoint.x, firstValidPoint.y, 1.5, 0, 2*Math.PI);
+                ctx.fill();
+            }
+            ctx.setTransform(1,0,0,1,0,0);
+        }
+
+        function renderCurves(curves) {
+            if (!curves || curves.length === 0) {
+                drawGridAndAxes(5);
+                return;
+            }
+
+            let maxR = 0;
+            for (const curve of curves) {
+                for (const point of curve.points) {
+                    if (point.r !== null && point.r > maxR) maxR = point.r;
+                }
+            }
+            maxR = Math.max(maxR, 0.5);
+            drawGridAndAxes(maxR);
+
+            for (const curve of curves) {
+                drawPolarCurve(curve.points, {
+                    drawGrid: false,
+                    color: curve.color,
+                    firstPointColor: curve.color,
+                });
+            }
+        }
+
+        // Estamos graficando curvas r = r(theta), com theta variando em [0, 2π].
+        // Como r = sqrt(x^2 + y^2), a distância radial é sempre positiva.
+        // Desenha a curva polar a partir de pontos calculados.
+        // REGRA-CHAVE: r representa uma distância (r = sqrt(x^2+y^2) >= 0).
+        // Se, em algum theta, f(theta) < 0, esse ponto NÃO EXISTE na curva -
+        // não é espelhado para o ângulo oposto. Simplesmente quebramos o traço
+        // e retomamos no próximo theta onde r volta a ser >= 0.
+        //
+        // Consequência matemática: como r=a*sin(n*theta) (ou cos) tem período 2π/n,
+        // em theta ∈ [0, 2π) sempre cabem exatamente n períodos completos, cada um
+        // com uma metade positiva e uma metade negativa. Descartando as metades
+        // negativas sobram exatamente n lóbulos positivos - ou seja, SEMPRE n pétalas,
+        // independente de n ser par ou ímpar.
+        // Marca os máximos locais por segmento contínuo de r>=0
+        function markMaxima(points) {
+            if (!points || points.length === 0) return;
+            const segments = [];
+            let seg = null;
+            for (let p of points) {
+                if (p.r !== null && p.r >= 0) {
+                    if (!seg) seg = { points: [] };
+                    seg.points.push(p);
+                } else {
+                    if (seg) { segments.push(seg); seg = null; }
+                }
+            }
+            if (seg) segments.push(seg);
+
+            function fmtTheta(t) {
+                const x = t / Math.PI;
+                const denoms = [1,2,3,4,6,8];
+                for (let d of denoms) {
+                    const n = Math.round(x * d);
+                    if (Math.abs(x - n / d) < 1e-3) {
+                        if (d === 1) return (n === 0 ? '0' : (n === 1 ? 'π' : n + 'π'));
+                        return `${n}/${d}π`;
+                    }
+                }
+                return `${x.toFixed(2)}π`;
+            }
+
+            ctx.save();
+            ctx.fillStyle = '#c0392b';
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 1.2;
+            ctx.font = "12px 'Segoe UI'";
+
+            for (let s of segments) {
+                if (!s.points || s.points.length === 0) continue;
+                // encontra máximo no segmento
+                let maxP = s.points[0];
+                for (let p of s.points) {
+                    if (p.r > maxP.r) maxP = p;
+                }
+                const theta = maxP.theta;
+                const r = Math.max(0, maxP.r);
+                const x = centerX + r * scale * Math.cos(theta);
+                const y = centerY - r * scale * Math.sin(theta);
+
+                // pequeno ponto marcando o máximo (visual sutil)
+                ctx.beginPath();
+                ctx.arc(x, y, 3.5, 0, 2*Math.PI);
+                ctx.fillStyle = '#c0392b';
+                ctx.fill();
+                ctx.fillStyle = '#c0392b';
+            }
+            ctx.restore();
+        }
+
+        // Marca as projeções cartesianas dos máximos: linhas tracejadas até os eixos e rótulos (x,y) + ângulo
+        function markMaximaCartesian(points, rFunc, tStart, tEnd) {
+            if (!points || points.length === 0) return;
+            const segments = [];
+            let seg = null;
+            for (let p of points) {
+                if (p.r !== null && p.r >= 0) {
+                    if (!seg) seg = { points: [] };
+                    seg.points.push(p);
+                } else {
+                    if (seg) { segments.push(seg); seg = null; }
+                }
+            }
+            if (seg) segments.push(seg);
+
+            ctx.save();
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = 'rgba(30,60,92,0.7)';
+            ctx.fillStyle = '#154360';
+            ctx.setLineDash([4,4]);
+            ctx.font = "12px 'Segoe UI'";
+
+            for (let s of segments) {
+                if (!s.points || s.points.length === 0) continue;
+                let maxP = s.points[0];
+                for (let p of s.points) { if (p.r > maxP.r) maxP = p; }
+                // refina máximo local usando rFunc para maior precisão
+                let theta = maxP.theta;
+                let r = Math.max(0, maxP.r);
+                try {
+                    if (typeof rFunc === 'function') {
+                        const delta = Math.min(Math.PI/8, (tEnd - tStart) / 20 || Math.PI/8);
+                        const a = Math.max(tStart, theta - delta);
+                        const b = Math.min(tEnd, theta + delta);
+                        // golden-section search for maximum of rFunc in [a,b]
+                        let gr = (Math.sqrt(5) - 1) / 2;
+                        let x1 = b - gr * (b - a);
+                        let x2 = a + gr * (b - a);
+                        let f1 = rFunc(x1); if (f1 === null) f1 = -Infinity;
+                        let f2 = rFunc(x2); if (f2 === null) f2 = -Infinity;
+                        for (let i = 0; i < 40; i++) {
+                            if (f1 < f2) { a = x1; x1 = x2; f1 = f2; x2 = a + gr * (b - a); f2 = rFunc(x2); if (f2===null) f2=-Infinity; }
+                            else { b = x2; x2 = x1; f2 = f1; x1 = b - gr * (b - a); f1 = rFunc(x1); if (f1===null) f1=-Infinity; }
+                        }
+                        const thetaRef = (f1 > f2) ? x1 : x2;
+                        const rRef = rFunc(thetaRef);
+                        if (rRef !== null && isFinite(rRef)) { theta = thetaRef; r = Math.max(0, rRef); }
+                    }
+                } catch(e) { /* fallback para valor amostrado */ }
+                const x = centerX + r * scale * Math.cos(theta);
+                const y = centerY - r * scale * Math.sin(theta);
+
+                // desenha apenas um ponto destacado para o máximo e um rótulo com o valor r
+                ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, 2*Math.PI);
+                ctx.fillStyle = '#2980b9';
+                ctx.fill();
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // rótulo do ângulo do máximo em fração de π (ex.: π/4, 5π/4)
+                function toPiFraction(theta) {
+                    const frac = theta / Math.PI;
+                    for (let denom = 1; denom <= 12; denom++) {
+                        const numer = Math.round(frac * denom);
+                        if (Math.abs(frac - numer / denom) < 1e-3) {
+                            if (numer === 0) return '0';
+                            const sign = numer < 0 ? '-' : '';
+                            const an = Math.abs(numer);
+                            const g = (function gcd(a,b){return b?gcd(b,a%b):a;})(an, denom);
+                            const nR = an / g; const dR = denom / g;
+                            if (dR === 1) return `${sign}${nR === 1 ? 'π' : nR + 'π'}`;
+                            if (nR === 1) return `${sign}π/${dR}`;
+                            return `${sign}${nR}π/${dR}`;
+                        }
+                    }
+                    const v = Math.round(frac * 100) / 100;
+                    return `${v}π`;
+                }
+
+                const angleLabel = toPiFraction(theta);
+                ctx.save();
+                ctx.font = "13px 'Segoe UI'";
+                const padOut = 18;
+                // posição base ligeiramente além do ponto máximo (radial)
+                const baseX = centerX + (r * scale + padOut) * Math.cos(theta);
+                const baseY = centerY - (r * scale + padOut) * Math.sin(theta);
+                // deslocamento perpendicular pequeno para evitar sobreposição com a linha
+                const perpOffset = 8;
+                const perpX = -Math.sin(theta);
+                const perpY = -Math.cos(theta); // note: canvas Y invertido já considerado
+                let lx = baseX + perpX * perpOffset;
+                let ly = baseY + perpY * perpOffset;
+                const labelW = ctx.measureText(angleLabel).width + 10;
+                if (lx + labelW/2 > width - 6) lx = width - 6 - labelW/2;
+                if (lx - labelW/2 < 6) lx = 6 + labelW/2;
+                if (ly < 16) ly = 16;
+                if (ly > height - 6) ly = height - 6;
+                ctx.fillStyle = 'rgba(255,255,255,0.95)';
+                ctx.fillRect(lx - 6, ly - 12, labelW, 18);
+                ctx.strokeStyle = 'rgba(30,60,92,0.08)';
+                ctx.strokeRect(lx - 6, ly - 12, labelW, 18);
+                ctx.fillStyle = '#0d3345';
+                ctx.fillText(angleLabel, lx - 6 + 6, ly + 2);
+                ctx.restore();
+            }
+            ctx.restore();
+        }
+
+        // engine principal de plotagem
+        function plotGraph() {
+            statusDiv.innerHTML = "⌛ Calculando e renderizando...";
+            statusDiv.style.color = "#d49b3a";
+
+            const curveSpecs = [
+                {
+                    enabled: showCurve1Inp.checked,
+                    name: "Curva 1",
+                    color: "#e67e22",
+                    exprInput: funcTextarea,
+                    startInput: thetaStartInp,
+                    endInput: thetaEndInp,
+                    stepInput: thetaStepInp,
+                },
+                {
+                    enabled: showCurve2Inp.checked,
+                    name: "Curva 2",
+                    color: "#2980b9",
+                    exprInput: funcTextarea2,
+                    startInput: thetaStartInp2,
+                    endInput: thetaEndInp2,
+                    stepInput: thetaStepInp2,
+                },
+            ];
+
+            const curvesToDraw = [];
+            const messages = [];
+
+            for (const spec of curveSpecs) {
+                if (!spec.enabled) continue;
+
+                let rawExpr = spec.exprInput.value.trim();
+                if (rawExpr === "") {
+                    if (spec.name === "Curva 1") {
+                        rawExpr = "2 * sin(2 * theta)";
+                    } else {
+                        messages.push(`${spec.name} ignorada: informe uma fórmula.`);
+                        continue;
+                    }
+                }
+
+                const rFunc = buildRFunction(rawExpr);
+                if (!rFunc) {
+                    statusDiv.innerHTML = `❌ Erro na fórmula da ${spec.name.toLowerCase()}. Verifique sintaxe.`;
+                    statusDiv.style.color = "#b33";
+                    drawGridAndAxes(5);
+                    return;
+                }
+
+                let tStart = parseThetaValue(spec.startInput.value);
+                let tEnd = parseThetaValue(spec.endInput.value);
+                let step = parseFloat(spec.stepInput.value.trim());
+                if (isNaN(step) || step <= 0) step = 0.02;
+                if (isNaN(tStart)) tStart = 0;
+                if (isNaN(tEnd)) tEnd = 2 * Math.PI;
+
+                if (tStart >= tEnd) {
+                    messages.push(`${spec.name} ignorada: o início deve ser menor que o fim.`);
+                    continue;
+                }
+
+                const effectiveStep = getEffectiveThetaStep(tStart, tEnd, step);
+                const points = computePoints(rFunc, tStart, tEnd, effectiveStep);
+                if (points.length === 0) {
+                    messages.push(`${spec.name} ignorada: nenhum ponto gerado.`);
+                    continue;
+                }
+
+                const hasValid = points.some(p => p.r !== null && p.r > 0);
+                if (!hasValid) {
+                    messages.push(`${spec.name} ignorada: r(θ) não ficou positivo nesse intervalo.`);
+                    continue;
+                }
+
+                curvesToDraw.push({
+                    name: spec.name,
+                    color: spec.color,
+                    points,
+                    rFunc,
+                    tStart,
+                    tEnd,
+                    rawExpr,
+                    effectiveStep,
+                });
+            }
+
+            if (curvesToDraw.length === 0) {
+                drawGridAndAxes(5);
+                statusDiv.innerHTML = `⚠️ Nenhuma curva válida para desenhar.${messages.length ? " " + messages.join(" ") : ""}`;
+                statusDiv.style.color = "#f1c40f";
+                window.lastComputedCurves = [];
+                return;
+            }
+
+            renderCurves(curvesToDraw);
+
+            if (curvesToDraw.length === 1) {
+                const curve = curvesToDraw[0];
+                try { markMaximaCartesian(curve.points, curve.rFunc, curve.tStart, curve.tEnd); } catch(e) { console.warn('markMaxima error', e); }
+            }
+
+            window.lastComputedCurves = curvesToDraw;
+            window.lastComputedPoints = curvesToDraw[0].points;
+
+            const plottedNames = curvesToDraw.map(c => c.name).join(' + ');
+            const curveDetails = curvesToDraw.map(c => `${c.name}: r = ${c.rawExpr.substring(0, 30)} | θ∈[${c.tStart.toFixed(2)}, ${c.tEnd.toFixed(2)}] | passo ${c.effectiveStep.toFixed(4)}`).join(' | ');
+            statusDiv.innerHTML = `✅ ${plottedNames} exibida(s). ${curveDetails}${messages.length ? ` | ${messages.join(' ')}` : ''}`;
+            statusDiv.style.color = "#2c6e2c";
+        }
+
+        window.setThetaInterval = function(start, end, step) {
+            thetaStartInp.value = start;
+            thetaEndInp.value = end;
+            thetaStepInp.value = step;
+            plotGraph();
+        };
+
+        window.setThetaInterval2 = function(start, end, step) {
+            thetaStartInp2.value = start;
+            thetaEndInp2.value = end;
+            thetaStepInp2.value = step;
+            plotGraph();
+        };
+
+        plotBtn.addEventListener('click', plotGraph);
+
+        function initializeAndTest() {
+            resizeCanvas();
+            funcTextarea.value = "2 * sin(2 * theta)";
+            thetaStartInp.value = "0";
+            thetaEndInp.value = "2*pi";
+            thetaStepInp.value = "0.02";
+            funcTextarea2.value = "";
+            thetaStartInp2.value = "0";
+            thetaEndInp2.value = "2*pi";
+            thetaStepInp2.value = "0.02";
+            showCurve1Inp.checked = true;
+            showCurve2Inp.checked = false;
+            plotGraph();
+        }
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            if (window.lastComputedCurves && window.lastComputedCurves.length > 0) {
+                renderCurves(window.lastComputedCurves);
+            } else {
+                drawGridAndAxes();
+            }
+        });
+
+        canvas.aulaZoom = function (factor) {
+            zoomFactor = Math.max(0.1, Math.min(20, zoomFactor * factor));
+            if (window.lastComputedCurves && window.lastComputedCurves.length) renderCurves(window.lastComputedCurves);
+            else drawGridAndAxes();
+        };
+        canvas.addEventListener('wheel', function (event) {
+            event.preventDefault();
+            canvas.aulaZoom(Math.exp(-event.deltaY * 0.001));
+        }, {passive:false});
+        initializeAndTest();
+
+        canvas.addEventListener('dblclick', () => {
+            plotGraph();
+        });
+
+        const inputs = [funcTextarea, thetaStartInp, thetaEndInp, thetaStepInp, funcTextarea2, thetaStartInp2, thetaEndInp2, thetaStepInp2, showCurve1Inp, showCurve2Inp];
+        inputs.forEach(inp => {
+            inp.addEventListener('keypress', (e) => {
+                if(e.key === 'Enter') {
+                    e.preventDefault();
+                    plotGraph();
+                }
+            });
+        });
+    })();
+</script>
+</body>
+</html>

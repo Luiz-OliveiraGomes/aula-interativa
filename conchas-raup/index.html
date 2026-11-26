@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>Conchas de Raup · Aula Interativa</title>
+ <link rel="icon" href="/icon/favicon.ico">
+ <link rel="stylesheet" href="/css/estilo.css">
+ <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+ <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+ <link rel="stylesheet" href="/css/template.css">
+ <link rel="stylesheet" href="/css/local.css?v=20261126-6">
+ <link rel="stylesheet" href="conchas.css">
+ <script src="/js/local-ui.js?v=20261126-6" defer></script>
+ <script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+</head>
+<body class="activity-page calculus-page">
+ <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+ <main class="container raup-page">
+  <div class="raup-heading"><h1>Conchas de Raup</h1>
+   <p>Explore superfícies em forma de concha pelos parâmetros \(D\), \(T\), \(W\) ou pela evolução de uma curva inicial.</p>
+  </div>
+  
+  <section class="raup-equations" aria-labelledby="equations-title">
+   <h2 id="equations-title">Modelos da superfície</h2>
+   <div id="raup-model-description">
+   <p>Na superfície \(\mathbf r(\theta,\phi\mid W,T,D)\), \(\theta\) percorre o enrolamento e \(\phi\) contorna a abertura.</p>
+   <div class="raup-formula">
+    \[\left\{\begin{aligned}
+    x(\theta,\phi)&=W^{\frac{\theta}{2\pi}}\left(\frac{2D}{1-D}+1+\cos\phi\right)\cos\theta,\\
+    y(\theta,\phi)&=W^{\frac{\theta}{2\pi}}\left(\frac{2D}{1-D}+1+\cos\phi\right)\sin\theta,\\
+    z(\theta,\phi)&=W^{\frac{\theta}{2\pi}}\left[2T\left(\frac{D}{1-D}+1\right)+\sin\phi\right].
+    \end{aligned}\right.\]
+   </div>
+   <p class="raup-equation-note">O fator \(W^{\theta/(2\pi)}\) descreve a expansão logarítmica. Os intervalos usuais são \(\theta\in[0,2\pi n]\) e \(\phi\in[0,2\pi]\), com \(n\) voltas.</p>
+   </div>
+   <div id="evolution-model-description" hidden>
+    <p>A evolução da curva inicial \(\mathbf y_0(x)\) gera a superfície:</p>
+    <div class="raup-formula">\[\mathbf y(t,x)=\lambda^t R_z(t)\mathbf y_0(x).\]</div>
+    <p>\(t\) é o tempo de crescimento; \(x\) percorre a borda inicial. Aqui, a rotação em torno de z tem ângulo \(t\), em radianos.</p>
+    <details class="raup-help"><summary>Ver a matriz de rotação e as coordenadas</summary>
+     <div class="raup-formula">\[R_z(t)=\begin{pmatrix}\cos t&-\sin t&0\\\sin t&\cos t&0\\0&0&1\end{pmatrix},\qquad \mathbf y_0(x)=\begin{pmatrix}a(x)\\b(x)\\c(x)\end{pmatrix}.\]</div>
+     <div class="raup-formula">\[\mathbf y(t,x)=\lambda^t\begin{pmatrix}a(x)\cos t-b(x)\sin t\\a(x)\sin t+b(x)\cos t\\c(x)\end{pmatrix}.\]</div>
+    </details>
+    <p class="raup-equation-note">λ &gt; 1 expande; 0 &lt; λ &lt; 1 contrai; λ = 1 mantém a escala. Uma volta completa multiplica a escala por \(\lambda^{2\pi}\).</p>
+   </div>
+  </section>
+  <div class="row raup-workspace">
+   <section class="col-sm-5 raup-settings activity-controls" aria-labelledby="settings-title">
+    <h2 class="settings-heading">Parâmetros da superfície</h2>
+    <div class="raup-model-tabs" role="group" aria-label="Modelo da superfície">
+      <button type="button" data-raup-model="raup" aria-pressed="true">Raup</button>
+      <button type="button" data-raup-model="evolution" aria-pressed="false">Equação de evolução</button>
+    </div>
+    <select id="raup-model" hidden aria-label="Modelo da superfície"><option value="raup">Parametrização de Raup (D, T, W)</option><option value="evolution">Equação de evolução (λ, R, y₀)</option></select>
+
+    <h2 id="settings-title">Monte sua concha</h2>
+    <form id="raup-form" novalidate>
+     
+     <fieldset id="raup-shape-fields"><legend>Parâmetros de forma</legend>
+      <div class="raup-shape-inputs">
+       <label for="shape-d"><span>D</span><input id="shape-d" name="D" value="2" inputmode="decimal" aria-describedby="help-d"></label>
+       <label for="shape-t"><span>T</span><input id="shape-t" name="T" value="3" inputmode="decimal" aria-describedby="help-t"></label>
+       <label for="shape-w"><span>W</span><input id="shape-w" name="W" value="0.5" inputmode="decimal" aria-describedby="help-w"></label>
+      </div>
+      <p class="raup-field-help">D: distância ao eixo · T: translação · W: expansão.<br>Use D ≥ 0, D ≠ 1 e W &gt; 0.</p>
+      <details class="raup-help"><summary>Entenda os três parâmetros</summary><dl class="raup-parameter-help"><dt>D <small>distância ao eixo</small></dt><dd id="help-d">Controla a posição da abertura. Use D ≥ 0 e D ≠ 1.</dd><dt>T <small>translação</small></dt><dd id="help-t">Controla a subida ou descida ao longo do eixo.</dd><dt>W <small>expansão</small></dt><dd id="help-w">Fator de expansão a cada volta completa. Use W &gt; 0.</dd></dl></details>
+     </fieldset>
+     <fieldset id="evolution-fields" hidden><legend>Escala e curva inicial</legend>
+      <label class="evolution-factor" for="evolution-lambda">λ <input id="evolution-lambda" value="0.5^(1/(2*pi))" spellcheck="false"></label>
+      <p class="raup-field-help">Valor inicial: λ ≈ 0,896; corresponde a W = 0,5 por volta.</p>
+      <div class="evolution-seed">
+       <label for="seed-a">a(x) <input id="seed-a" value="-3+cos(x)" spellcheck="false"></label>
+       <label for="seed-b">b(x) <input id="seed-b" value="0" spellcheck="false"></label>
+       <label for="seed-c">c(x) <input id="seed-c" value="-6+sin(x)" spellcheck="false"></label>
+      </div>
+      <p class="raup-field-help">Digite expressões em x, como cos(x) e sin(x). Os valores iniciais reproduzem o chifre de bode. Neste modelo, a altura da curva também é multiplicada por λ elevado a t; não há translação independente.</p>
+      <button type="button" id="evolution-from-raup" class="raup-reset">Usar D, T e W atuais como curva inicial e escala</button>
+     </fieldset>
+     <fieldset><legend>Intervalos</legend>
+      <label class="raup-turns" for="turns"><span id="turns-label">Voltas de θ</span> <input id="turns" type="number" value="3" min="0.25" max="20" step="0.25"></label>
+      <div class="raup-interval"><span id="growth-symbol" aria-hidden="true">θ</span><label for="theta-min"><span id="growth-min-label">θ inicial</span><input id="theta-min" name="theta-min" value="0" spellcheck="false"></label><label for="theta-max"><span id="growth-max-label">θ final</span><input id="theta-max" name="theta-max" value="6*pi" spellcheck="false"></label></div>
+      <div class="raup-interval"><span id="seed-symbol" aria-hidden="true">φ</span><label for="phi-min"><span id="seed-min-label">φ inicial</span><input id="phi-min" name="phi-min" value="0" spellcheck="false"></label><label for="phi-max"><span id="seed-max-label">φ final</span><input id="phi-max" name="phi-max" value="2*pi" spellcheck="false"></label></div>
+      <p class="raup-field-help">Você pode editar os quatro limites. Use <strong>pi</strong> ou <strong>π</strong> nas expressões.</p>
+     </fieldset>
+<button type="submit" class="btn btn-primary raup-submit">Gerar superfície</button>
+     <p class="raup-field-help">Também funciona pressionando Enter em um dos campos.</p>
+     <p id="raup-error" class="raup-error" role="alert" hidden></p>
+     <div class="raup-options"><label><input id="raup-show-mesh" type="checkbox" checked> Mostrar malha</label><label><input id="raup-show-grid" type="checkbox" checked> Grade de referência</label></div>
+     <button type="button" id="raup-reset" class="raup-reset">Restaurar valores iniciais</button>
+    </form>
+   </section>
+   <div class="col-sm-7 raup-right"><section class="raup-plot" aria-label="Gráfico interativo da concha">
+    <div class="raup-plot-heading"><div><span class="raup-dot" aria-hidden="true"></span> Visualização 3D</div><button id="raup-fit" type="button">Ajustar vista</button></div>
+    <div id="canvas-container" aria-label="Superfície de Raup: arraste para girar e use a roda do mouse para dar zoom"></div>
+    <p id="raup-status" role="status">Preparando a superfície…</p>
+   </section>
+   <aside class="raup-examples" aria-labelledby="examples-title">
+    <h2 id="examples-title">Duas formas para explorar</h2><p>Escolha um exemplo e depois experimente outros valores.</p>
+    <article class="raup-example"><div id="raup-preview-flat" class="raup-preview" aria-label="Prévia do chifre de bode"></div><div class="raup-example-body"><h3>Chifre de bode</h3><p>Exemplo inicial indicado pelo professor.</p><p class="raup-example-values">W = 0,5 · D = 2 · T = 3</p><button type="button" data-raup-example="0">Usar este exemplo</button></div></article>
+    <article class="raup-example"><div id="raup-preview-tall" class="raup-preview" aria-label="Prévia da concha em expansão"></div><div class="raup-example-body"><h3>Concha em expansão</h3><p>Segundo conjunto de parâmetros.</p><p class="raup-example-values">W = 2 · D = 0,5 · T = 0,4</p><button type="button" data-raup-example="1">Usar este exemplo</button></div></article>
+   </aside></div>
+  </div>
+ </main>
+ <footer class="text-center rodape">
+        <img src="../imagens/ect-logo.png">
+        Escola de Ciências e Tecnologia - UFRN
+        <img src="../imagens/ufrn-logo.png">
+        <p class="development-credit">Desenvolvido por <a class="raup-author-link" href="https://github.com/Luiz-OliveiraGomes" target="_blank" rel="noopener noreferrer">Luiz Felipe · GitHub</a>.</p>
+    </footer>
+ <script src="/vendor/jquery/jquery.min.js"></script>
+ <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+ <script src="/js/three/three.min.js"></script>
+ <script src="/js/three/OrbitControls.js"></script>
+ <script src="/js/canvas-renderer.js?v=20261126-6"></script>
+ <script src="/js/nerdamer/nerdamer.core.js"></script>
+ <script src="model.js"></script>
+ <script src="conchas.js"></script>
+ <script src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+</body>
+</html>

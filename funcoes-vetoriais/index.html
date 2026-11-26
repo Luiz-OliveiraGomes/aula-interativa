@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset='UTF-8'/>
+  <title>Funções vetoriais no R3</title>
+  <link rel="icon" href="../icon/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-local.js?v=20261126-6"></script>
+  <script src="func.js"></script>
+  <script type="text/javascript" async
+    src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="../css/template.css">
+  <script src='/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+  
+  <style>
+    input[type="number"] {
+      width: 100%;
+    }
+    .centered {
+      text-align: center;
+    }
+
+    .form-control {
+      text-align: left;
+    }
+
+    .float-right {
+      float: right;
+    }
+
+    .btn-form {
+      width: 100%;
+    }
+  </style>
+<link rel="stylesheet" href="/css/local.css?v=20261126-6">
+<script src="/js/local-ui.js?v=20261126-6" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+</head>
+<body class="activity-page calculus-page">
+  <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+	<div class="container">
+    <h1>Funções vetoriais no \(\mathbb{R}^3 \) </h1><br>
+
+    <p>
+        seja \(\overrightarrow{F}: \mathbb{R}\to\ \mathbb{R}^3 \) uma função vetorial tal que:
+        \(\overrightarrow{F}(t) =  (x(t),y(t),z(t))\ ,\ t\in [a,b) \subset Dom(\overrightarrow{F})\)
+    </p>
+    <br>
+    <b>Gráfico de função vetorial</b>
+    <br>
+    <br>
+      <form>
+        <div class="form-group row">
+            <div class="col-md-2">
+              <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon">\(x(t) = \)</div>
+                <input type="text" class="form-control" id="funcaoX">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon">\(y(t) = \)</div>
+                <input type="text" class="form-control" id="funcaoY">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon">\(z(t) = \)</div>
+                <input type="text" class="form-control" id="funcaoZ">
+              </div>
+            </div>
+            <div class="col-md-2" style="text-align: center">
+                <span><strong>Note que </strong>\( t \in [a, b] \)</span>
+            </div>
+            <div class="col-md-1">
+              <input type="number" class="form-control" id="valor-inicio" placeholder=" ">
+            </div>
+            <div class="col-md-1">
+              <input type="number" class="form-control" id="valor-fim" placeholder=" ">
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-primary btn-form" onclick="plotar()">Plotar</button>
+            </div>
+          </div>
+
+          <div class="form-group row">
+              <div class="col-md-4">
+                <input type="range" id='deslizante' min="0" max="1" oninput="setDeslizante()" step="0.01">
+                <span>a</span>
+                <span class="float-right">b</span>
+              </div>
+              <div class="col-md-2">
+                
+                </div>
+            </div>
+      </form>
+      <br>
+        <div id="geogebra"></div>
+      <br>
+      <div class="centered">
+        <img src="/imagens/mouse-click.png"/><b class="fonte8">Visualização </b>
+        <img src="/imagens/mouse-scroll.png"><b class="fonte8"> Zoom</b>
+      </div>
+      <br>
+      <div class="alert alert-info" id="resultado" role="alert" style="display: none;">
+        <strong>\(\overrightarrow{F´}(t)=\) </strong>(<span id="res-vetor"></span>)
+      </div>
+
+
+    </div>
+  <footer class="text-center rodape">
+      <img src="../imagens/ect-logo.png">
+      Escola de Ciências e Tecnologia - UFRN
+      <img src="../imagens/ufrn-logo.png">
+  </footer>
+</body>
+</html>

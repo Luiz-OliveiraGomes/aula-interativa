@@ -1,0 +1,21 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Curvas polares em 3D · Aula Interativa</title>
+<link rel="icon" href="../icon/favicon.ico"><link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/css/local.css?v=20261126-6"><link rel="stylesheet" href="/css/home.css"><link rel="stylesheet" href="/css/activity.css"><link rel="stylesheet" href="/css/learning.css?v=20261126-5">
+<script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-local.js?v=20261126-6"></script><script src="/js/local-ui.js?v=20261126-6" defer></script><script src="/js/navigation.js" defer></script><script src="/js/visits.js" defer></script><script src="/js/learning-ui.js?v=20261126-3" defer></script><script src="polares-3d.js" defer></script><link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+</head>
+<body class="activity-page polar3d-page calculus-page"><header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header><main class="container"><h1>Curvas polares em 3D</h1><section class="learning-intro"><h2>Do plano polar ao espaço</h2><p>No plano, uma curva polar é descrita por r(θ). Para levá-la ao espaço, usamos x = r(θ) cos(θ), y = r(θ) sin(θ) e acrescentamos uma altura z(θ). Quando a altura é zero, a curva continua no plano xy; quando varia, surge uma curva espacial.</p><p>A cardioide plana é r(θ) = 1 + cos(θ). Aqui você pode elevar essa curva ou explorar uma superfície obtida ao girar um perfil de cardioide em torno do eixo z. Curva e superfície são objetos diferentes: a curva usa um parâmetro, e a superfície usa dois.</p></section>
+<div class="polar3d-workspace"><section class="col-sm-4 activity-controls"><h2>Monte sua curva</h2><form id="polar3d-form"><label for="polar3d-example">Exemplo</label><select id="polar3d-example"><option value="cardioid">Cardioide espacial</option><option value="flat">Cardioide plana no espaço</option><option value="spiral">Espiral ascendente</option><option value="rose">Rosácea espacial</option><option value="surface">Superfície de cardioide</option></select><p class="learning-input-note">Os valores em cinza são os padrões. Digite para substituí-los ou deixe os campos vazios para usar o exemplo.</p><label for="polar3d-r">Raio r(θ)</label><input id="polar3d-r" type="text" placeholder="1+cos(t)" aria-label="Raio polar"><label for="polar3d-z">Altura z(θ)</label><input id="polar3d-z" type="text" placeholder="sin(2*t)" aria-label="Altura polar"><label for="polar3d-min">θ inicial</label><input id="polar3d-min" type="text" placeholder="0"><label for="polar3d-max">θ final</label><input id="polar3d-max" type="text" placeholder="2*pi"><p>Use <b>t</b> para θ e <b>pi</b> para π. Funções: sin, cos, tan, sqrt, abs, exp e log.</p><button type="submit">Gerar gráfico</button><button type="reset">Restaurar exemplo</button></form><p id="polar3d-status" class="learning-result" role="status">Carregando a visualização 3D…</p></section><section class="col-sm-8 polar3d-stage"><div id="applet_container" data-aula-native-resize="true"></div></section></div><p>Desenvolvido por <a href="https://github.com/Luiz-OliveiraGomes" target="_blank" rel="noopener noreferrer">Luiz Felipe</a>.</p></main><footer class="text-center rodape">
+    <img src="../imagens/ect-logo.png">
+    Escola de Ciências e Tecnologia - UFRN
+    <img src="../imagens/ufrn-logo.png">
+  </footer></body></html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset='UTF-8' />
+  <title>Cinemática de partícula no R³</title>
+  <link rel="icon" href="../icon/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" async src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML"
+    async>
+    </script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="../css/template.css">
+  <link rel="stylesheet" href="./cinematica.css">
+<link rel="stylesheet" href="/css/local.css?v=20261126-6">
+<script src="/js/local-ui.js?v=20261126-6" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+</head>
+
+<body class="activity-page calculus-page">
+  <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+  <div class='container'>
+    <h3>Cinemática de uma partícula no \(R^3\)</h3>
+
+    <div class='row'>
+      <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+        <p class='with-indentation'>Seja \(\overrightarrow{r}(t)=(x(t),y(t),z(t))\) a equação de movimento de uma partícula no espaço \(R^3\), onde:
+        </p>
+        <div class='description'>
+          <div class='item'>
+            \(t \to \text{tempo}\)
+          </div>
+          <div class='item'>
+            \(\left. \begin{array}{l} x(t)\\ y(t)\\ z(t) \end{array} \right\} \text{Coordenadas posição}\)
+          </div>
+          <div>
+            \( \text{Velocidade da partícula: } \overrightarrow{V}(t) = { d\overrightarrow{r}(t) \over dt } \)
+          </div>
+          <div>
+            \( \text{Módulo da velocidade: } v(t) = ||\overrightarrow{V}(t)|| \)
+          </div>
+        </div>
+      </div>
+      <div class='col-md-4 col-xs-12 col-lg-3 col-sm-12'>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form id="mainForm" class="text-center" autocomplete="off">
+              <div class="form-group form-inline">
+                <b>Função:</b>
+                <select class="form-control" name="" id="functionSelect">
+                  <option value="circunferencia">Circunferência</option>
+                  <option value="helice">Hélice</option>
+                  <option value="elipse">Elipse</option>
+                  <option value="reta">Reta</option>
+                  <option value="cicloide">Ciclóide</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+                    <label for="">Intervalo:</label>
+                    <div class="form-group form-inline">
+                      <input type="number" value="-10" class="form-control small-input" step="0.01" id="minDomain">
+                      <label for="">até</label>
+                      <input type="number" value="10" class="form-control small-input" step="0.01" id="maxDomain">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='form-group'>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    \(x(t) =\)
+                  </span>
+                  <input type="text" value="2cos(t)" autocomplete="off" id="fx" class="form-control">
+                </div>
+              </div>
+              <div class='form-group'>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    \(y(t) =\)
+                  </span>
+                  <input type="text" value="2sin(t)" autocomplete="off" id="fy" class="form-control">
+                </div>
+              </div>
+              <div class='form-group'>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    \(z(t) =\)
+                  </span>
+                  <input type="text" value="0" autocomplete="off" id="fz" class="form-control">
+                </div>
+              </div>
+              <div class='form-group'>
+                <button type="submit" id="submit" class='btn btn-primary btn-block'>Gerar gráfico</button>
+              </div>
+              <div class="panel panel-default hidden" id="tControls">
+                <div class="panel-body">
+                  <div class="form-group form-inline">
+                    <b>Avaliar em: </b> \(t = \)
+                    <input type="number" id="tValue" step="0.001" class="small-input form-control">
+                  </div>
+                  <div class="form-group">
+                    <input type="range" id="tSlider" step="0.001">
+                  </div>
+                  <div class="form-group">
+                    <input type="checkbox" id="moveCamera"> Acompanhar partícula
+                    <br>
+                  </div>
+                  <div class="hidden-xs form-group">
+                    <input type="checkbox" id="animate"> Animação
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 col-xs-12 col-lg-9 col-sm-12" id="mainDiv">
+        <ul class="nav nav-tabs">
+          <li role="presentation" class="active">
+            <a data-toggle="tab" id="mechanicsLink" href="#mechanics">A) Triedro de Frenet</a>
+          </li>
+          <li role="presentation">
+            <a data-toggle="tab" id="cinematicsLink" href="#mechanics">B) Prop. cinemáticas</a>
+          </li>
+          <li role="presentation">
+            <a data-toggle="tab" id="geometryLink" href="#geometry">C) Prop. geométricas</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div id="mechanics" class="tab-pane in active">
+            <div class="row">
+              <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+                <div class="graph-div" id="firstGraphDiv"></div>
+              </div>
+              <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+                <div class="description" id="descriptionMechanics">
+                  <div>
+                    <div class="vector-color red"></div>
+                    \( \text{Vetor unitário tangente: } \overrightarrow{T}(t) = {\overrightarrow{V}(t) \over v(t) } \)
+                  </div>
+                  <div>
+                    <div class="vector-color blue"></div>
+                    \( \text{Vetor unitário normal: } \overrightarrow{N}(t) = {\overrightarrow{T}(t) \over ||\overrightarrow{T}(t)|| } \)
+                  </div>
+                  <div>
+                    <div class="vector-color green"></div>
+                    \( \text{Vetor unitário binormal: } \overrightarrow{B} = \overrightarrow{T} \times \overrightarrow{N} \)
+                  </div>
+                </div>
+                <div class="description hidden" id="descriptionCinematics">
+                  <div>
+                    <div class="vector-color pink"></div>
+		    \( \text{Aceleração tangencial: } \) \( \overrightarrow{a}_T(t) = { dv(t) \over dt } \overrightarrow{T} \)
+		    <!--<span style="margin: 0px 10px">\(\text{ou}\)</span> \( a_T(t) = \overrightarrow{a}(t) \cdot \overrightarrow{T}\)-->
+                    <span style="margin: 0px 10px">\(\text{ou}\)</span> \( a_T(t) =\lt \overrightarrow{a}(t),\overrightarrow{T}(t) \gt\)
+                  </div>
+                  <div>
+                    <div class="vector-color purple"></div>
+                    \( \text{Aceleração total: } \overrightarrow{a}(t) = { d\overrightarrow{V}(t) \over dt } \)
+                  </div>
+                  <div>
+                    <div class="vector-color sky-blue"></div>
+                    \( \text{Aceleração centrípeta: } \overrightarrow{a}_{cpta}(t) = \overrightarrow{a} - \overrightarrow{a}_T \)
+                  </div>
+                </div>
+                <div class="hidden" id="descriptionGeometrics">
+                  <div id="curvature" class="curvature-canvas-container">
+                    <canvas id="curvatureCanvas"></canvas>
+                  </div>
+                  <div class="description">
+                    <div>
+                      \( \text{Curvatura: } k(t) = { |\overrightarrow{V}(t) \times \overrightarrow{a}(t) | \over v(t)^3 } \)
+                    </div>
+                    <div>
+                      \( \text{Raio de curvatura: } ρ(t) = {1 \over k(t)} \)
+                    </div>
+                    <div>
+			    <!--\( \text{Torção: } τ(t) = -(1 / v) \cdot { \overrightarrow{N} \cdot { d\overrightarrow{B}(t) \over dt } } \)-->
+			    <!--\( \text{Torção: } \tau(t) = -{1 \over v(t)} \lt d\overrightarrow{B}'(t), \overrightarrow{N}(t) \gt \)-->
+			    \( \text{Torção: } \tau(t) = -{1 \over v(t)} \lt {d\overrightarrow{B}'(t) \over dt}, \overrightarrow{N}(t) \gt \)
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class='col-md-12 col-xs-12 col-sm-12 col-lg-12'>
+        <p>Desenvolvedor:
+          <a target="_blank" href="https://github.com/medeirosDanilo">Danilo dos Santos Medeiros</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+  <footer class="text-center rodape">
+    <img src="../imagens/ect-logo.png"> Escola de Ciências e Tecnologia - UFRN
+    <img src="../imagens/ufrn-logo.png">
+  </footer>
+  <script src="./cinematica.js"></script>
+</body>
+
+</html>

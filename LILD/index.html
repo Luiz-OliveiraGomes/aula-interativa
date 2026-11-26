@@ -1,0 +1,204 @@
+<!-- Desenvolvedor: <a href="https://www.escavador.com/sobre/224536528/lucas-batista-da-fonseca" target="_blank" rel="noopener noreferrer">Lucas Batista da Fonseca</a> -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset='UTF-8'/>
+    <title> Func INDEPENDENCIA LINEAR</title>
+    <link rel="icon" href="../icon/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="linearidade.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" async
+      src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-algebra.js?v=20261126-4"></script>
+    <script src="linearidade.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../css/template.css">
+<link rel="stylesheet" href="/css/local.css">
+<script src="/js/local-ui-algebra.js?v=20261126-4" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-4" defer></script>
+</head>
+<body class="activity-page">
+    <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+    <div class="container">
+        <br>
+        <h3>DEPENDÊNCIA E INDEPENDÊNCIA LINEAR EM \(\mathbb{R^n}\)</h3>
+        <br>
+        <h4 align="middle">Seja `B = {`\(\vec{v_1}\),\(\vec{v_2}\),\(\vec{v_3}\),...,\(\vec{v_m}\)`}` um conjunto de m-vetores em \(\mathbb{R^n}\).</h4>
+        <br>
+        <h4 align="middle"> Procedimento para definir se o conjunto B é Linearmente Dependente(L.D) ou Linearmente Independente(L.I):</h4>
+        <br>
+        <br>
+        <div>
+        <form>
+            <div class="form-group row">
+                <h4>Defina números de Vetores</h4>
+                <div class="col-md-2">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon">`m`</div>
+                        <input id="dimei" name="dimei" type="numer" class="form-control">
+                    </div>
+                </div>
+                <br>
+                <br>
+                <h4>Defina \(\mathbb{R^n}\)</h4>
+                <div class="col-md-2">
+                    <div class="input-group mb-3 mr-sm-3 mb-sm-0">
+                        <div class="input-group-addon">`n`</div>
+                        <input id="dimej" name="dimej" type="numer" class="form-control">
+                    </div>
+                </div>        
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary btn-form" onclick="gerarMatriz()">Ok</button>
+            </div>
+        </div>
+        </form>
+        <form name="add_matriz" id="add_matriz">
+            <table class="table" id="espaco_dinamico">               
+            </table>
+            <h4>O conjunto B é L.I ou L.D? <button type="button" class="btn btn-primary btn-form" onclick="varrerMatriz()">Verificar</button></h4>
+        </form>
+        </div>
+        <br>
+        <div id="i==j" style="display: none; color: inherit;">
+            <br>
+            <h4 align="middle">`A` = \(\left\{  \begin{array}{} . & . & . & & .\\ \vec{v_1} & \vec{v_2} & \vec{v_3} & ... & \vec{v_m} \\ . & . & . && .\\ \end{array} \right\}\)</h4>
+            <br>
+            <h4 align="middle">Cada vetor `v_i` do conjunto B corresponde a coluna `i` da matriz A</h4>
+            <br>
+            <h4 align="middle">Conjunto B é L.I se `Det(A)`≠0 ou L.D se `Det(A)`=0.</h4>
+        </div>
+        <br>
+        <div id="texto_exemplo" style="display: none;width:1100;height: 600px">
+        <div class="geogebra">
+                <div id="applet_container"></div>
+            </div>
+        <br>
+        </div>
+        <div class="alert alert-info" id="resultadoxli" role="alert" style="display: none; color: inherit;">
+            <h3>Conclusão: </h3>
+            <h4 align="middle">det(A) = <span id="deta"></span></h4>
+            <h4 align="middle">O conjunto B é L.I </h4>
+        </div>
+        <div class="alert alert-info" id="resultadoxld" role="alert" style="display: none; color: inherit;">
+            <h3>Conclusão: </h3>
+            <h4 align="middle">det(A) = 0</h4>
+            <h4 align="middle">O conjunto B é L.D </h4>
+        </div>
+        <div class="alert alert-info" id="resultadoxli1" role="alert" style="display: none; color: inherit;">
+            <h3>Teorema: </h3>
+            <h4 align="middle">Seja um conjunto {\(\vec{v_1}\),...,\(\vec{v_n}\)} e `λ_1,...,λ_n` escalares.</h4>
+            <h4 align="middle">tal que \(λ_1\vec{v_1}\ +...+ λ_n\vec{v_n}\) = 0</h4>
+            <h4 align="middle">O conjunto é L.I se e somente se `λ_1 = ... = λ_n = 0`</h4>
+            <h3>Conclusão: </h3>
+            <h4 align="middle">Como os <span id="lambida1"></span> = 0</h4>
+            <h4 align="middle">O conjunto B é L.I </h4>
+        </div>
+        <div class="alert alert-info" id="resultadoxld1" role="alert" style="display: none; color: inherit;">
+            <h3>Teorema: </h3>
+            <h4 align="middle">Seja um conjunto {\(\vec{v_1}\),...,\(\vec{v_n}\)} e `λ_1,...,λ_n` escalares.</h4>
+            <h4 align="middle">tal que \(λ_1\vec{v_1}\ +...+ λ_n\vec{v_n}\) = 0</h4>
+            <h4 align="middle">O conjunto é L.D se qualquer λ ≠ 0</h4>
+            <h3>Conclusão: </h3>
+            <h4 align="middle">Como os <span id="lambida2"></span> então:</h4>
+            <h4 align="middle">O conjunto B é L.D </h4>
+        </div>
+        <div class="alert alert-info" id="resultadoxij" role="alert" style="display: none; color: inherit;">
+            <h3>Teorema: </h3>
+            <h4 align="middle">Seja E um espaço vetorial de dimensão `n` (finito).</h4>
+            <h4 align="middle">O Conjunto `{`\(\vec{v_1}\),\(\vec{v_2}\),...,\(\vec{v_m}\)`}` é L.D se `m > n`</h4>
+            <h3>Conclusão: </h3>
+            <h4 align="middle">O conjunto B é L.D </h4>
+
+        </div>
+	<br>
+        <h6>Desenvolvedor: <a href="https://www.escavador.com/sobre/224536528/lucas-batista-da-fonseca" target="_blank" rel="noopener noreferrer">Lucas Batista da Fonseca</a></h6>
+    </div>
+    <footer class="text-center rodape">
+        <img src="../imagens/ect-logo.png">
+        Escola de Ciências e Tecnologia - UFRN
+        <img src="../imagens/ufrn-logo.png">
+    </footer>
+
+<script>
+
+
+function gerarMatriz() {
+  var ni = document.getElementById("dimei").value;
+  var nj = document.getElementById("dimej").value;
+
+
+  for(var i = 1;i<=10;i++){
+    for(var j = 1;j<=10;j++){
+        var entrada = document.getElementById("entrada"+i+j);
+        if(document.body.contains(entrada)){
+            entrada.remove();
+            document.getElementById("rowth"+i+j).remove();
+        }
+    }
+  }
+
+
+  
+  for(var i = 1;i<=ni;i++){
+  var linhas = document.createElement("TR")
+  var l = document.getElementById("espaco_dinamico").appendChild(linhas);
+  l.setAttribute("id", "row"+i);
+    
+    for(var j = 1;j<=nj;j++){
+        var colunas = document.createElement("TL")
+        var btn = document.createElement("input");
+        var col = document.getElementById("row"+i).appendChild(colunas);
+        col.setAttribute("id", "rowth"+i+j);
+        if(j==1){
+            var text = document.createTextNode("v"+i+" = (");
+            colunas.appendChild(text);
+            document.getElementById("row"+i).appendChild(colunas);
+        }
+        else{
+            var text = document.createTextNode(" , ");
+            colunas.appendChild(text);
+            document.getElementById("row"+i).appendChild(colunas);
+        }
+            
+        var entradas = document.getElementById("rowth"+i+j).appendChild(btn);
+        entradas.setAttribute("id","entrada"+i+j);
+        var flag = true;
+        if (j==nj){
+            var text = document.createTextNode(" ) ");
+            colunas.appendChild(text);
+            document.getElementById("row"+i).appendChild(colunas);
+        }
+    }
+}
+}
+
+
+</script>
+
+</body>
+</html>
+

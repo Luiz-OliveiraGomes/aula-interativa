@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset='UTF-8'/>
+  <title>Rotação de vetores</title>
+  <link rel="icon" href="../icon/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" async
+      src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-algebra.js?v=20261126-4"></script>
+  <script src="rotacao-de-vetores.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="../css/template.css">
+<link rel="stylesheet" href="/css/local.css">
+<script src="/js/local-ui-algebra.js?v=20261126-4" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-4" defer></script>
+</head>
+<body class="activity-page">
+  <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <h1>Rotação de vetores em torno dos eixos</h1>
+    <div class="row">
+      <div class="col-sm-6">
+        <br><p>Seja `v` &isin; &real;&sup3;:</p>
+        <form id="dados" class="formulario">
+          `v` = (
+          <input type="text" name="vetor" size="9" placeholder="x  ,  y  ,  z"/>
+          )
+          <button class="marginInput" type="button" onclick="plotV()">Plotar</button>
+          <br/><br/>
+          Rotação em torno dos eixos em graus:
+          <br/><br/>
+          <input type="checkbox" id="rotZ" checked/>
+          Eixo z:
+          <input type="text" name="nz" size="2" placeholder="&alpha;&deg;"/>
+          <br/><br/>
+          <input type="checkbox" id="rotY" checked/>
+          Eixo y:
+          <input type="text" name="ny" size="2" placeholder="&beta;&deg;"/>
+          <br/><br/>
+          <input type="checkbox" id="rotX" checked/>
+          Eixo x:
+          <input type="text" name="nx" size="2" placeholder="&gamma;&deg;"/>
+          <button class="marginInput" type="button" onclick="rotacionar()">Rotacionar</button>
+          <br/><br/>
+        </form>
+        <div class="row">
+          <div class="col-sm-6">
+            <p class="vetor" id="v"></p>
+          </div>
+          <div class="col-sm-6">
+            <p class="vetor" id="v'"></p>
+          </div>
+        </div>
+        <span id="nota-modulo" style="margin-left: 40px">As rotações não alteram o módulo do vetor.</span>
+      </div>
+      <div class="col-sm-6">
+        <div id="applet_container"></div>
+        <img src="../imagens/mouse-click.png" style="margin-left: 45%;" /><b style="font-size: 8pt">Visualização 3D </b>
+        <img src="../imagens/mouse-scroll.png"><b style="font-size: 8pt;"> Zoom</b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div id="demo">
+          <h4>Cálculo das coordenadas de <b>v</b>'</h4>
+          As matrizes de rotação no &real;&sup3; são:<br/><br/>
+          Eixo Z `rarr R_alpha = [[cosalpha,-sinalpha,0],[sinalpha,cosalpha, 0],[0,0,1]]`<br/><br/>
+          Eixo Y `rarr R_beta = [[cosbeta,0,sinbeta],[0,1,0],[-sinbeta,0,cosbeta]]`<br/><br/>
+          Eixo X `rarr R_gamma = [[1,0,0],[0,cosgamma,-singamma],[0,singamma,cosgamma]]`<br/><br/>
+          Na rotação realizada:<br><br>
+          <span id="composicao"></span><br>
+          <span id="eqRot"></span><br><br>
+          `v' = `<span id="matrizRotX"></span><span id="matrizRotY"></span><span id="matrizRotZ"></span><span id="matrizV"></span>` = `<span id="matrizV'"></span><br/><br/><br/>
+          <h4>Módulo constante</h4>
+          O módulo do vetor resultante <b>v</b>' é o igual ao módulo do vetor <b>v</b>.<br/>
+          Seja R a matriz de rotação:<br/><br/>
+          <p class="calculo">
+            `v' = R v`<br/><br/>
+            `|v'| = sqrt((:v',v':))` <span title="Observação 1">` " (*)"`</span><br/><br/>
+            `= sqrt((v')^T v') = sqrt((Rv)^T Rv)`<br/><br/>
+            `= sqrt(v^T R^T Rv) = sqrt(v^T R^-1 Rv)` <span title="Observação 2">` " (**)"`</span><br/><br/>
+            `= sqrt(v^Tv) = sqrt((:v,v:)) = |v|` <br/><br/>
+          </p>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <br/>
+        <p class="caption">Vídeo explicativo do canal <a href='https://www.youtube.com/channel/UCGoK950uuEZyURnLXCSjx7Q' target="_blank"><cite>Academia Zanella</cite></a></p>
+        <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/nu82tPe-ty4"></iframe>
+            </div>
+            <div id="asteriscos" class="marginLeft">
+              `"(*) " `Seja`" "v = (v_x,v_y,v_z)`<br><br>
+              `rArr (:v,v:) = v_x^2 + v_y^2 + v_z^2`<br><br>
+              `= [[v_x,v_y,v_z]][[v_x],[v_y],[v_z]] = v^T v`<br><br>
+              Se`" "v' = (v_x',v_y',v_z')`<br><br>
+              `rArr (:v',v':) = (v')^T v'`
+              <br><br><br><br>
+              `"(**) "` As matrizes de rotação são ortogonais.<br>
+              Consequentemente, seja `R` uma matriz de rotação, então:<br><br>
+              `R*R^T = I "  " rArr "  " R^T = R^-1`
+            </div>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center rodape">
+    <img src="../imagens/ect-logo.png">
+    Escola de Ciências e Tecnologia - UFRN
+    <img src="../imagens/ufrn-logo.png">
+  </footer>
+</body>
+</html>

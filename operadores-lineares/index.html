@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset='UTF-8'/>
+  <title>Operadores Lineares</title>
+  <link rel="icon" href="../icon/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" async
+      src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-algebra.js?v=20261126-4"></script>
+  <script src="operadores-lineares.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="../css/template.css">
+<link rel="stylesheet" href="/css/local.css">
+<script src="/js/local-ui-algebra.js?v=20261126-4" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-4" defer></script>
+</head>
+<body class="activity-page">
+  <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <br>
+    <h1>Operadores Lineares e translação</h1>
+    <div class="row">
+      <div class="col-sm-6">
+        <form id="dados" class="formulario">
+          Escolha a figura:<br><br>
+          <select class="marginInput" onchange="figurinha()">
+            <option value="vetor" selected>Vetor</option>
+            <option value="triangulo">Triângulo</option>
+            <option value="retangulo">Retângulo</option>
+            <option value="pentagono">Pentágono</option>
+            <option value="hexagono">Hexágono</option>
+          </select>
+          <br/><br/>
+          Modifique a figura clicando e arrastado no gráfico!
+          <br/><br/>
+          Selecione um ou mais operadores:
+          <br/><br/>
+          <select class="marginInput" onchange="select(this,'escalar1')">
+            <option value="reflexaoX" selected>Reflexão no eixo X</option>
+            <option value="reflexaoY">Reflexão no eixo Y</option>
+            <option value="dilatacao">Dilatação/Contração</option>
+            <option value="rotacao">Rotação</option>
+            <option value="cisalhamentoH">Cisalhamento horizontal</option>
+            <option value="cisalhamentoV">Cisalhamento vertical</option>
+            <option value="translacao">Translação</option>
+          </select>
+          <input title="escalar" class="marginInput" id="escalar1" size="3"/>
+          <br><br>
+          <select id='operador2' class="marginInput" onchange="select(this,'escalar2')">
+            <option value="nenhum" selected>Nenhum</option>
+            <option value="reflexaoX">Reflexão no eixo X</option>
+            <option value="reflexaoY">Reflexão no eixo Y</option>
+            <option value="dilatacao">Dilatação/Contração</option>
+            <option value="rotacao">Rotação</option>
+            <option value="cisalhamentoH">Cisalhamento horizontal</option>
+            <option value="cisalhamentoV">Cisalhamento vertical</option>
+            <option value="translacao">Translação</option>
+          </select>
+          <input title="escalar" class="marginInput" id="escalar2" size="3"/>
+          <br><br>
+          <select class="marginInput" onclick="permicao()" onchange="select(this,'escalar3')">
+            <option value="nenhum" selected>Nenhum</option>
+            <option value="reflexaoX">Reflexão no eixo X</option>
+            <option value="reflexaoY">Reflexão no eixo Y</option>
+            <option value="dilatacao">Dilatação/Contração</option>
+            <option value="rotacao">Rotação</option>
+            <option value="cisalhamentoH">Cisalhamento horizontal</option>
+            <option value="cisalhamentoV">Cisalhamento vertical</option>
+            <option value="translacao">Translação</option>
+          </select>
+          <input title="escalar" class="marginInput" id="escalar3" size="3"/>
+          <br><br>
+          <button class="marginInput" type="button" onclick="executar()">Executar</button>
+          <br/><br/>
+        </form>
+        <div class="row">
+          <div class="col-sm-6">
+            <p class="vetor" id="v"></p>
+          </div>
+          <div class="col-sm-6">
+            <p class="vetor" id="v'"></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div id="applet_container"></div>
+        <img src="../imagens/mouse-click.png" style="margin-left: 35%;" /><b style="font-size: 8pt">Visualização</b>
+        <img src="../imagens/mouse-scroll.png"><b style="font-size: 8pt;"> Zoom</b>
+        <!--p style="font-size: 8pt; text-align: right;">NOTA: Adblock ou similares podem bloquear a aplicação do Geogebra.</p-->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div id="demo">
+          <h4>Cálculo da operação</h4>
+          Na operação realizada temos para cada ponto P:<br><br>
+          <div class="marginLeft" id="calculo"></div><br>
+          Seja P = <span id="ponto"></span>:<br><br>
+          <div class="marginLeft" id="calculoPonto"></div><br>
+          <h4>Definição de alguns operadores lineares de `R^2` em `R^2`</h4><br>
+          <div class="marginLeft">
+            `T:"&real;&sup2;"rarr"&real;&sup2;"`<br><br>
+            `(x,y)|->T(x,y)`<br><br>
+          </div>
+          <b>Reflexão no eixo x</b><br>
+          `rArr Ref_x(P) = (x,-y)`<br/><br/>
+          <b>Reflexão no eixo y</b><br>
+          `rArr Ref_y(P) = (-x,y)`<br/><br/>
+          <b>Dilatação/contração</b><br>
+          `rArr Dil(P) = a(x,y), a in R`<br/><br/>
+          <b>Rotação</b><br>
+          `rArr Rot(P) = (xcostheta-ysintheta, xsintheta+ycostheta), -180"&deg;"<=theta<=180"&deg;"`<br/><br/>
+          <b>Cisalhamento horizontal</b><br>
+          `rArr Cis_h(P) = (x+alphay,y), alpha in R`<br/><br/>
+          <b>Cisalhamento vertical</b><br>
+          `rArr Cis_v(P) = (x,y+alphax), alpha in R`<br/><br/>
+          <b>Translação</b><br>
+          `rArr trans(P) = (x+a,y+b), (a,b) in R^2` <span title="Observação 2">` " (**)"`</span><br/><br/>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <br/>
+        <p class="caption">Vídeo explicativo do canal <a href="https://www.youtube.com/@00LEOPIRES" target="_blank" rel="noopener noreferrer">@00LEOPIRES</a> · <a href="https://youtu.be/-aCFJf_xzyM" target="_blank" rel="noopener noreferrer">Abrir no YouTube</a></p>
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" title="Vídeo sobre operadores lineares do canal @00LEOPIRES" loading="lazy" allowfullscreen src="https://www.youtube.com/embed/-aCFJf_xzyM"></iframe>
+        </div>
+          <div id="asteriscos">
+            `"(*)"` Valores com precisão de uma casa decimal. <br><br>
+            `"(**)"` A translação não é uma transformação linear.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center rodape">
+    <img src="../imagens/ect-logo.png">
+    Escola de Ciências e Tecnologia - UFRN
+    <img src="../imagens/ufrn-logo.png">
+  </footer>
+</body>
+</html>

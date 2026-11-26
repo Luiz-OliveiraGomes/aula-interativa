@@ -1,0 +1,104 @@
+.canvas-container {
+    margin-left: auto; 
+    margin-right: auto;
+    text-align: center;
+}
+.relative.canvas-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 0px auto;
+    -webkit-box-align:center;
+    -webkit-box-pack:center;
+    display:-webkit-box;
+}
+.cycloid.relative.canvas-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin: 0px auto;
+    overflow-y: auto;
+}
+.cycloid.relative.canvas-container > canvas {
+    height: 300px;
+}
+canvas {
+    width: 100%;
+    border: 1px solid #CCC;
+}
+.relative.canvas-container > canvas {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.form-control {
+    font-weight: bold;
+    border-radius: 0 !important;
+    box-shadow: none;
+}
+
+.form-control-block {
+    width: 100% !important;
+}
+
+.btn {
+    font-weight: bold !important;
+}
+
+.small {
+    width: 80px !important;
+}
+
+.divider {
+    margin: 10px 0 10px 0;
+    height: 1px;
+    background: #CCC;
+    width: 100%;
+}
+
+.form-control-small {
+    width: 100px !important;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+@media (max-width: 800px) {
+    
+    .scroll-div {
+        overflow-x: auto;
+    }
+
+    .cycloid.relative.canvas-container {
+        width: 800px    
+    }
+    .cycloid.relative.canvas-container > canvas {
+        height: 300px;
+    }
+}
+
+@media (max-width: 500px) {
+    .relative.canvas-container {
+        width: 100%;
+    }
+}
+@media (max-width: 450px) {
+    .relative.canvas-container {
+        width: 100%;
+    }
+}
+@media (max-width: 375px) {
+    .relative.canvas-container {
+        width: 100%;
+        
+    }
+}

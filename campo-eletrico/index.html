@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset='UTF-8'/>
+    <title>Campos vetoriais</title>
+    <link rel="icon" href="../icon/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="campo-eletrico.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" async
+      src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-local.js?v=20261126-6"></script>
+    <script src="campo-eletrico.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../css/template.css">
+<link rel="stylesheet" href="/css/local.css?v=20261126-6">
+<script src="/js/local-ui.js?v=20261126-6" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+</head>
+<body class="activity-page calculus-page">
+    <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+    <div class="container">
+        <h1>Campo elétrico de um dipolo</h1>
+        <br>
+        <div class="row" align="center">
+            <div id="dipolo">
+                Dipolo:
+                <select onchange="campo()">
+                    <option value="pn" selected> positivo/negativo </option>
+                    <option value="pp"> positivo/positivo </option>
+                    <option value="nn"> negativo/negativo </option>
+                </select>
+            </div>
+            <div id="size">
+                `q2=`
+                <input onchange="campo()" id="sizeq2" type="number" name="q2" value="1" min="1" max="5">
+                `xxq1`
+            </div>
+            <input onchange="campo()" id="densidade" type="checkbox">
+            <span id="span-densidade">Alta densidade</span>
+            <br><br>
+            <div id="applet_container"></div>
+            <img src="../imagens/square-red.png">
+            <span class="red"> Positivo </span>
+            <img id="square-black" src="../imagens/square-black.png">
+            <span> Negativo </span>
+            <br><br>
+            <h4>Linhas de campo e equipotenciais</h4>
+            <img src="../imagens/linhas-campo.png">
+        </div>
+    </div>
+    <footer class="text-center rodape">
+        <img src="../imagens/ect-logo.png">
+        Escola de Ciências e Tecnologia - UFRN
+        <img src="../imagens/ufrn-logo.png">
+    </footer>
+</body>
+</html>

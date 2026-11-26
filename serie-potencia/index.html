@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset='UTF-8'/>
+  <title>Série de Potência</title>
+  <link rel="icon" href="../icon/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" async
+    src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-local.js?v=20261126-6"></script>
+  <script src="series.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="../css/template.css">
+<link rel="stylesheet" href="/css/local.css?v=20261126-6">
+<script src="/js/local-ui.js?v=20261126-6" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+</head>
+<body class="activity-page calculus-page">
+  <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <div class="row" align="middle">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <h1>Série de Potência</h1>
+        <br>
+        <p class="recuo">
+          Algumas funções reais de variáveis reais podem ser aproximadas por polinômios infinitos. Como por exemplo a função `f(x)=4/(x+2)`, como veremos a seguir.
+        </p>
+        `f(x)=sum_(n=0)^ooubrace((-1/4)^n(x-2)^n)_(A_n)-=sum_(n=0)^ooar^n:.{(a=1),(r=-1/4(x-2)):}`
+        <br><br>
+        `a->` 1&deg; termo da série geométrica
+        <br>
+        `b->` razão da série geométrica
+        <br>
+        `A_n->` n-ésimo da série geométrica
+        <br><br>
+        <p class="recuo">
+          Logo, a série de potência é convergente quando `|r|lt1`, ou seja, no intervalo de convergência `I_c=(:-2,6:)`
+        </p>
+        <br>
+        <p class="recuo">
+          A aproximação da função `f(x)` pela série de potência no intervalo de convergência pode ser visualizado da seguinte forma:
+        </p>
+        <img class="img-responsive" src="../imagens/series-geometricas-termos.PNG" alt="Termos da série geométrica">
+        <br><br>
+        <h4>Gráfico das somas parciais e da função `f(x)`</h4>
+        <br>
+        <div id="applet_container"></div>
+        <br>
+        <button class="btn btn-secondary" onclick="primeirosTermos()">4 primeiros termos</button>
+        <input id="manter" type="checkbox" onchange="manterSomas(this.checked)">
+        Manter somas parciais
+        <br><br>
+        <button class="btn btn-default" onclick="somatorio('reset')">Resetar</button>
+        <button id="btn-prev" class="btn btn-primary" onclick="somatorio('previous')" disabled>`y_0`</button>
+        Termo atual: <span id="atual">`y_1`</span>
+        <button id="btn-next" class="btn btn-primary" onclick="somatorio('next')">`y_2`</button>
+        <br><br><br>
+        <h4>Conclusão</h4>
+        <p class="recuo">
+          As somas parciais se aproximam à função `f(x)` no intervalo de convergência `I_c` quanto maior for o número de termos da série. Com essa afirmação podemos perceber que algumas funções (diferenciáveis em todo o domínio) podem ser expandidas como uma soma infinita de série de potência. Essas são chamadas de <ins>Série de Taylor</ins>.
+        </p>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+  <footer class="text-center rodape">
+      <img src="../imagens/ect-logo.png">
+      Escola de Ciências e Tecnologia - UFRN
+      <img src="../imagens/ufrn-logo.png">
+  </footer>
+</body>
+</html>

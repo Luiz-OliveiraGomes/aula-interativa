@@ -1,0 +1,75 @@
+var param = {
+  "id":"ggb",
+  "width":600,
+  "height":500,
+  "showToolBar":false,
+  "borderColor":null,
+  "showMenuBar":false,
+  "showAlgebraInput":false,
+  "showResetIcon":false,
+  "enableLabelDrags":false,
+  "enableShiftDragZoom":false,
+  "enableRightClick":false,
+  "capturingThreshold":null,
+  "showToolBarHelp":false,
+  "errorDialogsActive":false,
+  "useBrowserForJS":true,
+  "ggbBase64":"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"};
+
+var ggbApplet = new GGBApplet(param, '5.0');
+ggbApplet.setHTML5Codebase("/vendor/geogebra/GeoGebra/HTML5/5.0/web3d/");
+window.onload = function() {
+  ggbApplet.inject('geogebra','preferHTML5');
+}
+
+var ggb = document.ggb;
+var ggbInit = false;
+
+function ggbOnInit(){
+  ggb = document.ggb;
+  ggb.enableRightClick(false);
+  ggb.enableLabelDrags(false);
+  ggb.setCoordSystem(0,1,-1,1,-1,1);
+  ggb.evalCommand('angulo='+document.getElementById('angulo').value+'°')
+  if(!ggbInit)
+    campo(1,1);
+}
+
+function campo(forca,area){
+  var i,j,k;
+  var d = area/(forca+1);
+  for(i=0; i<=area; i+=d){
+    for(j=-area; j<=area; j+=d){
+      for(k=-area; k<=area; k++){
+        ggb.evalCommand('Translate(v,('+i.toFixed(2)+','+j.toFixed(2)+','+k.toFixed(2)+'))');
+      }
+    }
+  }
+  ggb.evalCommand('area='+area);
+  ggb.setCoordSystem(0,area,-area,area,-area,area);
+}
+
+function setAngulo(angulo){
+  document.getElementById('valorAngulo').innerHTML = angulo + '°';
+  ggb.evalCommand('angulo = '+angulo+'°');
+  var forca = document.getElementById('forca').value;
+  var area = document.getElementById('area').value;
+  var angulo = document.getElementById('angulo').value;
+  document.getElementById('f').innerHTML = forca;
+  document.getElementById('a').innerHTML = area;
+  document.getElementById('t').innerHTML = "cos("+angulo+"°)";
+  document.getElementById('resultado').innerHTML = (forca*area*Math.cos(angulo*Math.PI/180)).toFixed(3);
+}
+
+function setResultado(){
+  var forca = document.getElementById('forca').value;
+  var area = document.getElementById('area').value;
+  var angulo = document.getElementById('angulo').value;
+  ggbInit = true;
+  ggb.reset();
+  campo(Number(forca),Number(area));
+  document.getElementById('f').innerHTML = forca;
+  document.getElementById('a').innerHTML = area;
+  document.getElementById('t').innerHTML = "cos("+angulo+"°)";
+  document.getElementById('resultado').innerHTML = (forca*area*Math.cos(angulo*Math.PI/180)).toFixed(3);
+}

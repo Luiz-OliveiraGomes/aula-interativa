@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset='UTF-8'/>
+  <title>Fluxo</title>
+  <link rel="icon" href="../icon/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+  <link rel="stylesheet" type="text/css" href="fluxo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" async
+      src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-local.js?v=20261126-6"></script>
+  <script src="fluxo.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../css/template.css">
+<link rel="stylesheet" href="/css/local.css?v=20261126-6">
+<script src="/js/local-ui.js?v=20261126-6" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+</head>
+<body class="activity-page calculus-page">
+  <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+  <h1>Fluxo através de um plano</h1>
+  <br>
+    <div class="row">
+      <div class="col-sm-6" align="middle">
+        <p class="recuo">Seja o campo vetorial</p>
+        `vecF:RR^3->RR^3`
+        <br>
+        `(x,y,z)|->(F_1(x,y,z),F_2(x,y,z),F_3(x,y,z))`
+        <br><br>
+        <p class="recuo">Considere o campo homogênio  `vecF(x,y,z)=(0,0,|F|)=|F|hatk`</p>
+        <br>
+        <form>
+          Módulo do campo
+          <br>
+          `|F|=`
+          <input type="number" id="forca" min="1" max="5" value="1" oninput="setResultado()">
+          <br><br>
+          Área do plano
+          <br>
+          `A=`
+          <input type="number" id="area" min="1" max="5" value="1" oninput="setResultado()">
+          <br><br>
+          Ángulo em relação ao plano XY
+          <br>
+          `theta=`
+          <div class="inline-block"><input type="range" id='angulo' min="-180" max="180" name="theta" value="0" oninput="setAngulo(this.value)"></div><span id="valorAngulo"> 0°</span>
+        </form>
+        <br>
+        <p class="recuo">Logo o fluxo é</p>
+        <span id="border">`Phi=`<span id="f">1</span><span id="t">cos(0)</span>`**`<span id="a">1</span>`=`<span id="resultado">1.000</span></span>
+        <br><br><br>
+        <p class="recuo">O fluxo `Phi` através do plano é obtida da seguinte forma:</p>
+        `Phi=intintvecF*hatndA`
+        <br>
+        `=intint|F||n|cos(theta)dA=Fcos(theta)intintdA`
+        <br>
+        `intintdA` é a área do retângulo `D`
+        <br>
+        `rArrPhi=Fcos(theta)A`
+      </div>
+      <div class="col-sm-6" align="middle">
+        <div id="geogebra"></div>
+        <img src="../imagens/mouse-click-right.png"/><b class="fonte8"> Visualização</b>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center rodape">
+    <img src="../imagens/ect-logo.png">
+    Escola de Ciências e Tecnologia - UFRN
+    <img src="../imagens/ufrn-logo.png">
+  </footer>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset='UTF-8'/>
+  <title>Interseção de planos cartesianos com Quádricas</title>
+  <link rel="icon" href="../icon/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" async
+      src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-algebra.js?v=20261126-4"></script>
+  <script src="intersecao-quadricas.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="../css/template.css">
+  <style type="text/css">
+      select#quadrica {margin-right: 20px}
+      #valorPlano {display: inline}
+      #a {
+        display: inline-block;
+        margin-left: 5px;
+      }
+      #plano {margin-right: 10px}
+      #valorRange {margin-left: 8px}
+  </style>
+<link rel="stylesheet" href="/css/local.css">
+<script src="/js/local-ui-algebra.js?v=20261126-4" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-4" defer></script>
+</head>
+<body class="activity-page">
+  <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <h1>Interseção de planos cartesianos com quádricas</h1><br>
+    <div class="row" align="middle">
+      <div class="col-sm-4">
+        <span>Plano:</span>
+        <select id="plano" onchange="setPlano()">
+          <option value="planoZ" selected>z</option>
+          <option value="planoY">y</option>
+          <option value="planoX">x</option>
+        </select>=
+        <div id="a"><input type="range" id='range' min="-5" max="5" oninput="setValorPlano()"></div><span id="valorRange">0</span>
+      </div>
+      <div class="col-sm-4">
+        Quádrica:
+        <select id="quadrica" onchange="setQuadrica()">
+          <option value="cone" selected>Cone</option>
+          <option value="elipsoide">Elipsoide</option>
+          <option value="paraboloideEliptico">Paraboloide elíptico</option>
+          <option value="paraboloideHiperbolico">Paraboloide hiperbólico</option>
+          <option value="paraboloideRevolucao">Paraboloide de revolução</option>
+          <option value="hiperboloideUmaFolha">Hiperboloide de uma folha</option>
+          <option value="hiperboloideDuasFolhas">Hiperboloide de duas folhas</option>
+          <option value="cilindroEliptico">Cilindro elíptico</option>
+          <option value="cilindroParabolico">Cilindro parabólico</option>
+          <option value="cilindroHiperbolico">Cilindro hiperbólico</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <span id="formula">`rArr x^2/a^2+y^2/b^2-z^2/c^2=0`</span>
+      </div>
+    </div>
+    <br>
+    <div class="row" align="middle">
+        <div id="geogebra"></div>
+      <img src="../imagens/mouse-click.png"/><b class="fonte8">Visualização </b>
+      <img src="../imagens/mouse-scroll.png"><b class="fonte8"> Zoom</b>
+    </div>
+  </div>
+  <footer class="text-center rodape">
+    <img src="../imagens/ect-logo.png">
+    Escola de Ciências e Tecnologia - UFRN
+    <img src="../imagens/ufrn-logo.png">
+  </footer>
+</body>
+</html>

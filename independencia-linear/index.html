@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset='UTF-8'/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Indepedência Linear</title>
+  <link rel="icon" href="../icon/favicon.ico" />
+  <script type="text/javascript" async
+      src="/vendor/mathjax/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="/vendor/geogebra/GeoGebra/deployggb.js"></script><script src="/js/geogebra-algebra.js?v=20261126-4"></script>
+  <script src = "independencia.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/template.css">
+<link rel="stylesheet" href="/css/local.css">
+<script src="/js/local-ui-algebra.js?v=20261126-4" defer></script>
+<script src="/js/visits.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/activity.css">
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/activity-ui.js" defer></script>
+<link rel="stylesheet" href="/css/learning.css?v=20261126-3">
+<script src="/js/learning-ui.js?v=20261126-4" defer></script>
+</head>
+<body class="activity-page">
+  <header class="home-header">
+    <div class="home-container header-inner">
+      <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav id="home-navigation" aria-label="Navegação principal">
+        <a href="../index.php#sobre">Sobre</a>
+        <a href="../index.php#algebra-linear">Álgebra Linear</a>
+        <a href="../index.php#calculo">Cálculo</a>
+        <a href="../index.php#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+    <div class="container">
+      <h1>Independência Linear</h1><br>
+    </div>
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          Seja `v, u` &isin; &real;&sup2;:
+          <form id="entrada2" class="formulario">
+            `v` = (
+            <input type="text" name="vetorV" size="6" placeholder="x  ,  y"/>
+            )<br/><br/>
+            `u` = (
+            <input type="text" name="vetorU" size="6" placeholder="x  ,  y"/>
+            )<br/><br/>
+            <abbr title="Verifica se v e u são linearmente dependentes ou independentes"><button type="button" onclick="verificar2()">Verificar</button></abbr>
+          </form>
+          <div id="resposta2">
+            <p class="recuo">
+              Para `v` = (<span id="vx"></span>, <span id="vy"></span>) e `u` = (<span id="ux"></span>, </span><span id="uy"></span>) o conjunto de vetores `S = {v,u}` é <span id="resultado2"></span>, pois <span id="justificativa2"></span><br/><br>
+              <span id="prova2"></span><br>
+              <p class="teorema" id="vetorNulo">
+                <b>TEOREMA</b><br/><i>Um conjunto finito de vetores que contém o vetor nulo é linearmente dependente.</i>
+              </p>
+              <p class="teorema" id="naoMultiplos">
+                <b>TEOREMA</b><br/><i>Um conjunto de exatamente dois vetores é linearmente independente se, e somente se, nenhum do dois vetores é um múltiplo escalar do outro.</i>
+              </p>
+              <p class="teorema" id="multiplos">
+                <b>TEOREMA</b><br/><i>Um conjunto de exatamente dois vetores é linearmente dependente se, e somente se, um dos vetores é um múltiplo escalar do outro.</i>
+              </p>
+            </p>
+            Adicionando `w` ao conjunto de vetores `S`:
+            <form id="entrada3"  class="formulario">
+              `w` = (
+              <input type="text" name="vetorW" size="6" placeholder="x  ,  y"/>
+              )<br/><br/>
+              <abbr title="Verifica se {v,u,w} são LD ou LI"><button type="button" onclick="verificar3()">Verificar</button></abbr>
+            </form>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div id="applet_container"></div>
+          <img src="../imagens/mouse-click.png" style="margin-left: 35%;" /><b style="font-size: 8pt">Visualização 3D </b>
+          <img src="../imagens/mouse-scroll.png"><b style="font-size: 8pt;"> Zoom</b>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div id="resposta3">
+            <p class="recuo">
+              Para <b>w</b> = (<span id="wx"></span>, <span id="wy"></span>) o conjunto de vetores `S = {v,u,w}` é <ins>linearmente dependente</ins> (<abbr title='Linearmente dependente'>LD</abbr>), pois um conjunto com três ou mais vetores no &real;&sup2; sempre é <abbr title='Linearmente dependente'>LD</abbr>.
+              <p class="teorema">
+                <b>TEOREMA</b><br/>
+                <i>Seja S = {<b>v</b><small><sub>1</sub></small>, <b>v</b><small><sub>2</sub></small>,..., <b>v</b><sub>r</sub>} um conjunto de vetores em <b>R</b><sup>n</sup>. Se r > n, então S é linearmente dependente.</i>
+              </p>
+              <p class="recuo">
+                Assim, pode-se expressar um vetor de `S` como uma combinação linear dos outros vetores:
+              </p>
+              <span id="prova3" style="margin-left: 40px"></span>
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div>
+            <br>
+            <p class="caption">Vídeo explicativo do canal <a href='https://www.youtube.com/channel/UCdv5kM0ZID619s3kNUIlBdg' target="_blank"><cite>O Estudante</cite></a></p>
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/HhhBL1p8LFU"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="text-center rodape">
+    <img src="../imagens/ect-logo.png">
+    Escola de Ciências e Tecnologia - UFRN
+    <img src="../imagens/ufrn-logo.png">
+  </footer>
+</body>
+</html>
