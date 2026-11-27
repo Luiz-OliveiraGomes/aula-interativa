@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="../css/template.css">
 <link rel="stylesheet" href="/css/local.css?v=20261126-6">
-<script src="/js/local-ui.js?v=20261126-6" defer></script>
+<script src="/js/local-ui.js?v=20261126-11" defer></script>
 <script src="/js/visits.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/home.css">
@@ -27,8 +27,10 @@
   <script src="/js/navigation.js" defer></script>
   <script src="/js/activity-ui.js" defer></script>
 <link rel="stylesheet" href="/css/learning.css?v=20261126-3">
-<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<script src="/js/learning-ui.js?v=20261126-11" defer></script>
 <link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+<link rel="stylesheet" href="/css/coordinate-controls.css?v=20261126-11">
+<script src="/js/fullscreen-parameters.js?v=20261126-11" defer></script>
 </head>
 <body class="activity-page calculus-page">
     <header class="home-header">
@@ -47,7 +49,7 @@
         <h1>Campo elétrico de um dipolo</h1>
         <br>
         <div class="row" align="center">
-            <div id="dipolo">
+            <div data-fullscreen-controls="applet_container" class="dipole-controls"><div id="dipolo">
                 Dipolo:
                 <select onchange="campo()">
                     <option value="pn" selected> positivo/negativo </option>
@@ -61,7 +63,7 @@
                 `xxq1`
             </div>
             <input onchange="campo()" id="densidade" type="checkbox">
-            <span id="span-densidade">Alta densidade</span>
+            <span id="span-densidade">Alta densidade</span></div>
             <br><br>
             <div id="applet_container"></div>
             <img src="../imagens/square-red.png">

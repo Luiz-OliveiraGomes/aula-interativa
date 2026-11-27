@@ -2,7 +2,7 @@
 
 Plataforma educacional para explorar **Álgebra Linear e Cálculo** com gráficos, animações e atividades interativas.
 
-Esta versão reúne **33 atividades**, uma interface renovada e melhorias de navegação, preenchimento de parâmetros e enquadramento dos gráficos. O projeto continua em desenvolvimento.
+Esta versão reúne **34 atividades**, uma interface renovada e melhorias de navegação, preenchimento de parâmetros e enquadramento dos gráficos. O projeto continua em desenvolvimento.
 
 ## O que já está disponível
 
@@ -10,6 +10,9 @@ Esta versão reúne **33 atividades**, uma interface renovada e melhorias de nav
 - Gráficos e construções interativas com GeoGebra, Three.js e Canvas, conforme a atividade.
 - Textos introdutórios, exemplos e equações para acompanhar as explorações.
 - Controles de zoom e tela cheia, com ajustes de tamanho nas atividades de Cálculo.
+- Painel de parâmetros acessível na tela cheia, preservando os campos e controles das atividades.
+- Coordenadas esféricas: raio e ângulos editáveis, com opção de fixar θ ou φ durante o arraste e acompanhar as medidas em tempo real.
+- Coordenadas cilíndricas: explore a distância ao eixo, o ângulo e a altura mantendo duas coordenadas fixas.
 - Campos separados para coordenadas de vetores e preenchimento direto de funções e parâmetros.
 - Construções originais de Álgebra Linear preservadas, incluindo as animações de soma direta.
 - Integração dupla por soma de Riemann com alteração das partições de x e y na tela cheia.
@@ -17,7 +20,24 @@ Esta versão reúne **33 atividades**, uma interface renovada e melhorias de nav
 - Curvas polares em 3D: cardioides, espirais, rosáceas e uma superfície de revolução.
 - Contador de visitas com mapa de origem aproximada e estimativa de sessões ativas.
 
+## Atualização de 26/11/2026
+
+A seção de Cálculo agora inclui coordenadas cilíndricas. Nas coordenadas esféricas, **θ é o ângulo medido a partir do eixo z positivo** e **φ é o ângulo no plano xy**:
+
+- **Fixar θ:** arraste o ponto pela circunferência horizontal para variar φ; a altura permanece constante.
+- **Fixar φ:** arraste o ponto pelo meridiano para variar θ.
+- O painel mostra r, θ, φ e as coordenadas cartesianas do ponto, inclusive na tela cheia.
+- Nas coordenadas cilíndricas, escolha **Variar φ**, **Variar z** ou **Variar r** para explorar uma coordenada de cada vez.
+
+Para editar valores sem sair da visualização ampliada, use o botão **Parâmetros**. Ao sair da tela cheia, os controles retornam à posição original.
+
+As conversões, as restrições dos ângulos, os polos e a origem têm testes automatizados. O arraste dos pontos e a edição de parâmetros também foram conferidos no navegador.
+
 ## Algumas telas
+
+### Coordenadas esféricas: parâmetros na tela cheia
+
+![Coordenadas esféricas com θ fixo e painel de parâmetros na tela cheia](docs/imagens/coordenadas-esfericas-tela-cheia.png)
 
 ### Campo vetorial em movimento
 
@@ -75,6 +95,7 @@ Com Node.js instalado, os testes existentes das superfícies podem ser executado
 node tests/check-surface.cjs
 node tests/check-raup.cjs
 node tests/check-evolution.cjs
+node tests/check-coordinates.cjs
 ```
 
 ## Organização
@@ -94,7 +115,7 @@ node tests/check-evolution.cjs
 
 - Projeto do professor **Hector Carrion**, da Escola de Ciências e Tecnologia da UFRN.
 - Desenvolvimento original por **Maciel Barbosa**: [repositório de origem](https://github.com/macielbarbosa/aulainterativa).
-- Desenvolvimento e evolução desta versão por **Luiz Felipe**.
+- Desenvolvimento e evolução desta versão por [**Luiz Felipe**](https://github.com/Luiz-OliveiraGomes).
 - Os créditos dos demais desenvolvedores permanecem nas respectivas atividades, incluindo os links de autoria já existentes.
 
 Referência do projeto: [Aula Interativa — ECT/UFRN](https://aulainterativa.ect.ufrn.br/).

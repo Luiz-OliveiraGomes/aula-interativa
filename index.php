@@ -1,5 +1,6 @@
 <?php
 $activities = [
+ ['coordenadas-cilindricas/', 'imagens/inicio/catalogo/coordenadas-cilindricas.svg', 'Coordenadas Cilíndricas', 'calculo', 'Explore a distância ao eixo, o ângulo e a altura com um ponto interativo no espaço.'],
  ['polares-3d/', 'imagens/inicio/catalogo/polares-3d.svg', 'Curvas polares em 3D', 'calculo', 'Explore cardioides, espirais e rosáceas no espaço, alterando o raio e a altura.'],
     ['independencia-linear/', 'imagens/inicio/catalogo/independencia-linear.png', 'Independência Linear', 'algebra', 'Mova os vetores e observe quando um deles pode ser escrito como combinação dos demais.'],
     ['rotacao-de-vetores/', 'imagens/inicio/catalogo/rotacao-de-vetores.png', 'Rotação de vetores', 'algebra', 'Varie o ângulo e acompanhe a mudança de posição de um vetor durante a rotação.'],

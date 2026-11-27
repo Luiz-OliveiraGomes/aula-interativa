@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="../css/template.css">
 <link rel="stylesheet" href="/css/local.css?v=20261126-6">
-<script src="/js/local-ui.js?v=20261126-6" defer></script>
+<script src="/js/local-ui.js?v=20261126-11" defer></script>
 <script src="/js/visits.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/home.css">
@@ -31,11 +31,13 @@
   <script src="/js/navigation.js" defer></script>
   <script src="/js/activity-ui.js" defer></script>
 <link rel="stylesheet" href="/css/learning.css?v=20261126-3">
-<script src="/js/learning-ui.js?v=20261126-3" defer></script>
+<script src="/js/learning-ui.js?v=20261126-11" defer></script>
 <link rel="stylesheet" href="/css/responsive-graphs.css?v=20261126-6">
+<script src="/js/coordinate-model.js?v=20261126-11" defer></script><script src="/js/coordinate-explorer.js?v=20261126-12" defer></script>
+<link rel="stylesheet" href="/css/coordinate-controls.css?v=20261126-11">
+<script src="/js/fullscreen-parameters.js?v=20261126-11" defer></script>
 </head>
-<body class="activity-page calculus-page">
-    <header class="home-header">
+<body class="activity-page calculus-page"><!-- A convenção angular acompanha as equações originais. --><header class="home-header">
     <div class="home-container header-inner">
       <a class="home-brand" href="../index.php#myPage"><span class="brand-orbit" aria-hidden="true"></span>Aula Interativa</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-navigation" aria-label="Abrir menu"><span></span><span></span><span></span></button>
@@ -46,56 +48,7 @@
         <a href="../index.php#contato">Contato</a>
       </nav>
     </div>
-  </header>
-    <div class="container">
-        <h1>Coordenadas esféricas</h1>
-        <br>
-        <div class="row" align="middle">
-            <div class="col-sm-6">
-                <div class="borded">
-                        <p class="recuo"> <img src="CE.png" width="300px" height="300px"> </p>
-                    <p class='recuo'>\( \theta \in [0 , \pi], \phi \in [0 , 2 \pi) \) , \(  \ r \geq 0 \)
-                </div>
-                <br>
-                <p class="recuo">Coordenadas esféricas \( \to \) Coordenadas cartesianas  </p>
-
-                <p class="recuo"> \( x=r \sin(\theta) \cos(\phi) \)  </p>
-                <p class="recuo"> \( y=r \sin(\theta) \sin(\phi) \) </p>
-                <p class="recuo"> \( z=r \cos(\theta) \)</p>
-                <br>
-                    <p class="recuo"></p>
-                
-                <br><br>
-                <p class="recuo"></p>
-            
-                <br><br>
-               
-                <br><br>
-                
-                <br><br>
-                <div id="resultadoBox">
-                    <div class="borded"><span id="resultado"></span></div>
-                </div>
-            </div>
-            <div class="col-sm-6 geogebra">
-                <div id="applet_container"></div>
-                <br>
-                <img src="../imagens/mouse-click.png"/><b class="fonte8">Visualização </b>
-                <img src="../imagens/mouse-scroll.png"><b class="fonte8"> Zoom</b>
-                <br><br>
-                <div>
-                    <p class="recuo"></p>
-                    <p class="recuo"></p>
-                    <p class="recuo"></p>
-                    <p class="recuo"></p>
-                    <br>
-                    <br>
-                    <p class="recuo col-sm-10"></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <footer class="text-center rodape">
+  </header><main class="container" data-coordinate-system="spherical"><h1>Coordenadas esféricas</h1><section class="learning-intro"><h2>Localize um ponto no espaço</h2><p>O raio r mede a distância à origem. O ângulo θ é medido a partir do eixo z positivo; φ indica a direção no plano xy.</p><p class="try-example">Fixe θ para variar φ: o ponto percorre uma circunferência horizontal. Fixe φ para variar θ: o ponto percorre um meridiano. Arraste a bolinha roxa pelo caminho dourado; as medidas acompanham o movimento.</p><p>\(x=r\sin\theta\cos\phi\), \(y=r\sin\theta\sin\phi\), \(z=r\cos\theta\).<br>\(r\geq0,\;0\leq\theta\leq\pi,\;0\leq\phi<2\pi\).</p></section><div class="coordinate-workspace"><section id="coordinate-settings" class="coordinate-settings coordinate-controls activity-controls" data-fullscreen-controls="applet_container"></section><section class="coordinate-stage"><div id="applet_container"></div><p class="coordinate-live-note">Arraste a bolinha roxa para variar as coordenadas. Use Girar vista para mudar o ponto de observação e a roda do mouse para dar zoom.</p></section></div><p>Desenvolvido por <a href="https://github.com/Luiz-OliveiraGomes" target="_blank" rel="noopener noreferrer">Luiz Felipe</a>.</p></main><footer class="text-center rodape">
         <img src="../imagens/ect-logo.png">
         Escola de Ciências e Tecnologia - UFRN
         <img src="../imagens/ufrn-logo.png">

@@ -37,7 +37,7 @@
     width: Number(entry.graph.dataset.aulaGraphWidth) || entry.graph.clientWidth,
     height: Number(entry.graph.dataset.aulaGraphHeight) || entry.graph.clientHeight
    };
-   const width = expanded ? entry.panel.clientWidth - 32 : Math.min(entry.originalSize.width, entry.panel.clientWidth);
+   const width = expanded ? entry.panel.clientWidth - parseFloat(getComputedStyle(entry.panel).paddingLeft) - parseFloat(getComputedStyle(entry.panel).paddingRight) : Math.min(entry.originalSize.width, entry.panel.clientWidth);
    const height = expanded ? entry.panel.clientHeight - entry.toolbar.offsetHeight - 48 : entry.originalSize.height;
    const size = Math.max(1, Math.round(width)) + ',' + Math.max(1, Math.round(height));
    if (size !== entry.lastSize) {
@@ -129,6 +129,7 @@
  }
 
  document.addEventListener('fullscreenchange', scheduleFit);
+ window.addEventListener('aula:parameters-change', scheduleFit);
  document.addEventListener('keydown', function (event) {
   if (event.key === 'Escape') {
    panels.forEach(entry => entry.panel.classList.remove('local-graph-expanded'));

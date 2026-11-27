@@ -41,7 +41,7 @@
     entry.panel.classList.add('native-graph-panel');
     entry.panel.style.maxWidth = Math.min(entry.originalSize.width, 860) + 'px';
    }
-   const width = expanded ? entry.panel.clientWidth - 32 : entry.graph.dataset.aulaNativeResize === 'true' ? entry.panel.clientWidth - 2 : Math.min(entry.originalSize.width, entry.panel.clientWidth);
+   const width = expanded ? entry.panel.clientWidth - parseFloat(getComputedStyle(entry.panel).paddingLeft) - parseFloat(getComputedStyle(entry.panel).paddingRight) : entry.graph.dataset.aulaNativeResize === 'true' ? entry.panel.clientWidth - 2 : Math.min(entry.originalSize.width, entry.panel.clientWidth);
    const extra = entry.panel.querySelector('.graph-live-controls');
    const height = expanded ? entry.panel.clientHeight - entry.toolbar.offsetHeight - (extra ? extra.offsetHeight : 0) - 48 : Math.min(entry.originalSize.height, 560);
    const size = Math.max(1, Math.round(width)) + ',' + Math.max(1, Math.round(height));
@@ -167,6 +167,7 @@
  }
 
  document.addEventListener('fullscreenchange', scheduleFit);
+ window.addEventListener('aula:parameters-change', scheduleFit);
  document.addEventListener('keydown', function (event) {
   if (event.key === 'Escape') {
    panels.forEach(entry => entry.panel.classList.remove('local-graph-expanded'));

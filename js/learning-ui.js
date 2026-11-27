@@ -32,7 +32,7 @@
  'riemann':['Aproximando áreas com retângulos','Uma soma de Riemann aproxima a integral de uma função dividindo o intervalo em partes e somando áreas orientadas de retângulos. A escolha da altura de cada retângulo influencia a aproximação.','Aumente as partições e compare a soma com a área indicada pela curva. Regiões abaixo do eixo contribuem com sinal negativo.']
  };
  const intro=intros[slug];
- if(intro){
+ if(intro&&!document.querySelector('[data-coordinate-system]')){
   const title=document.querySelector('h1')||document.querySelector('body > .container h3');
   if(title){const box=document.createElement('section');box.className='learning-intro';box.setAttribute('aria-label','Entenda a atividade');
    const h=document.createElement('h2');h.textContent=intro[0];const p=document.createElement('p');p.textContent=intro[1];const steps=document.createElement('p');steps.className='try-example';steps.textContent=intro[2];box.append(h,p,steps);title.after(box);}
@@ -43,7 +43,7 @@
  function numeric(label,value,min,max,fn){const l=document.createElement('label');l.append(label+' ');const i=document.createElement('input');i.type='number';i.value=value;i.min=min;i.max=max;i.step='1';i.setAttribute('aria-label',label);l.append(i);let previous=String(value);function commit(){if(!i.checkValidity()||i.value===''||i.value===previous)return;previous=i.value;fn(Number(i.value));}i.addEventListener('input',commit);i.addEventListener('change',commit);return {label:l,input:i};}
  // Keep the original input and its value for the mathematical scripts. The visible editor starts empty.
  function ghostInput(original){
-  if(original.dataset.learningEditor||original.closest('.coordinate-pair,.local-graph-surface,.graph-live-controls,.learning-matrix,#polar3d-form')||original.type==='hidden'||original.readOnly||original.disabled)return;
+  if(original.dataset.learningEditor||original.closest('.coordinate-controls,.coordinate-pair,.local-graph-surface,.graph-live-controls,.learning-matrix,#polar3d-form')||original.type==='hidden'||original.readOnly||original.disabled)return;
   const defaultValue=original.value;if(!defaultValue)return;
   original.dataset.learningEditor='true';original.hidden=true;original.style.display='none';original.tabIndex=-1;original.setAttribute('aria-hidden','true');
   const editor=document.createElement('input');editor.type=['number','text'].includes(original.type)?original.type:'text';editor.className='learning-entry';editor.setAttribute('form','aula-separate-editors');
@@ -91,11 +91,7 @@
    ['n','m'].forEach((key,i)=>{const source=document.getElementById(key+suffix);const edit=numeric('Partições em '+(i?'y':'x'),source.value,1,10,v=>{source.value=v;window['setValor'+key.toUpperCase()+suffix]();update();});c.append(edit.label);source.addEventListener('input',()=>{edit.input.value=source.value;});});
    const l=document.createElement('label');l.textContent='Alturas ';const select=document.createElement('select');for(const [value,text]of [['inf','Menor nos vértices'],['sup','Maior nos vértices']]){const o=document.createElement('option');o.value=value;o.textContent=text;select.append(o);}select.addEventListener('change',()=>{document.getElementById('inf'+suffix).checked=select.value==='inf';document.getElementById('sup'+suffix).checked=select.value==='sup';update();});l.append(select);c.append(l);
   });
-  if(slug==='coordenadas-esfericas'){
-   const api=graphApi('applet_container');if(api&&!api.aulaFixedLabels){api.aulaFixedLabels=true;api.getAllObjectNames().forEach(n=>{if(api.getObjectType(n)==='text')api.setFixed(n,true,false);});
-    const out=document.createElement('div');out.className='spherical-readout';out.setAttribute('aria-label','Medidas da posição');document.getElementById('applet_container').closest('.local-graph-panel').after(out);
-    function read(){const x=api.getXcoord('P'),y=api.getYcoord('P'),z=api.getZcoord('P'),r=Math.hypot(x,y,z);if(!Number.isFinite(r)||r===0)return;const theta=Math.acos(Math.max(-1,Math.min(1,z/r)))*180/Math.PI,phi=((Math.atan2(y,x)*180/Math.PI)%360+360)%360;out.replaceChildren();[['Raio r',r.toFixed(2)],['θ',(theta.toFixed(1)+'°')],['φ',(phi.toFixed(1)+'°')]].forEach(([n,v])=>{const label=document.createElement('span');label.append(n+': ');const o=document.createElement('output');o.textContent=v;label.append(o);out.append(label);});}api.registerObjectUpdateListener('P',read);read();}
-  }
+
  }
  function styleOriginalAnimationButtons(){
   if(slug!=='SomaDiretaR2'&&slug!=='SomaDiretaR3')return;
